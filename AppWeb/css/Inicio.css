@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+
+    background-color: #ffffff;
+    background-image: url(/img/fondo.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.logo {
+width:200px;
+margin-left: 20px;
+margin-right:  50px;
+
+}
+.Contenedor {
+    color: white;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: min-content;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(	76, 108, 156, .8);
+    margin-bottom: auto 30px;
+}
+footer {
+    color: white; 
+    padding: 20px;
+    background: rgba(55, 146, 216, .8);
+    border-radius: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.CustomBg {
+    background: rgba(55, 146, 216, .99);
+}
+
+
+
+.Ingreso {
+    width: 360px;
+    height: min-content;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgb(146, 157, 200, 0.8);
+    margin-bottom: 30px;
+}
+.tbcustom {
+    color: white;
+    background-color: rgb(37, 38, 81);
+}
+
+
+.Contenedor2 {
+    max-width: 600px;
+   
+    color: white;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(37, 38, 81, .8);
+    margin-bottom: auto 30px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.tbcustom2 {
+color: white;
+}
+
+.cambiarContrasenia{
+    background-color: #ffffff00;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.Custombtn {
+    background: rgba(220, 30, 37, .97);
+    margin-top: 20px;
+}
+
+.btnBuscar{
+    background-color: #238CCC;
+}
+
+.Custombtn {
+    background: rgba(220, 30, 37, .97);
+    margin-top: 20px;
+}
+
+.btnProciegos2{
+    background-color: #238CCC;
+    margin-top: 20px;
+}
+
+.btnProciegos3{
+    background-color: #334163;
+    margin-top: 20px;
+}
+
+
+.btnAzul{
+    background-color: #238CCC;
+}
+
+.btnRojo{
+    background: rgba(220, 30, 37, .97);
+}
+
+tr:hover {
+    background-color: #238CCC !important; /* Color de fondo personalizado */
+    color: white !important; /* Cambia el color del texto si es necesario */
+}
+
+.filas :hover {
+    background-color: #238CCC !important; /* Color de fondo personalizado */
+    color: white !important;
+}
+/*------------------*/
+.logologin {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 0 auto;
+  }
+  
+  .Login {
+    width: 360px;
+    height: min-content;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgb(220, 231, 255, 0.8);
+    margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .lblLogin {
+    text-align: center;
+  }
+  
+  .lblBienvenida {
+    font-size: small;
+    text-align: center;
+  }
+  
+  .btn.Custombtn {
+    background: rgba(220, 30, 37, .97);
+  }
+
+
+  .rl-loading-container {
+    display: none; /* Oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Fijo para cubrir toda la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
+    z-index: 9999; /* Asegúrate de que esté por encima de otros elementos */
+}
+
+.rl-loading-thumb {
+    width: 10px;
+    height: 40px;
+    background-color: #41f3fd;
+    margin: 4px;
+    box-shadow: 0 0 12px 3px #0882ff;
+    animation: rl-loading 1.5s ease-in-out infinite;
+}

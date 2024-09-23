@@ -1,0 +1,102 @@
+<nav class="navbar navbar-expand-lg CustomBg navbar-dark">
+    <div class="container-fluid">
+
+        <img class="logo" src="/img/LogotipoSF.png" alt="Logo" />
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <!-- Mantenimiento Menu -->
+                <li class="nav-item dropdown" id="liMantenimiento">
+                    <a class="nav-link dropdown-toggle" href="#" id="maintenanceDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Mantenimiento</a>
+                    <ul class="dropdown-menu" aria-labelledby="maintenanceDropdown">
+                        <li><a class="dropdown-item" onclick="cargarFormulario(50)">Inicio</a></li>
+                        <li><a class="dropdown-item" onclick="cargarFormulario(51)">Nuevo Docente</a></li>
+                        <li><a class="dropdown-item" onclick="cargarFormulario(52)">Actualizar Docente</a></li>
+                        <li><a class="dropdown-item" href="~/Ordenes/MisOrdenes">Inscripciones</a></li>
+                        <li><a class="dropdown-item" href="~/Ordenes/NewOrden">Asignación de cursos</a></li>
+                        <li><a class="dropdown-item" href="~/Ordenes/ListaOrdenes">Asignación de docentes</a></li>
+                    </ul>
+                </li>
+
+                <!-- Administración Menu -->
+                <li class="nav-item dropdown" id="liAdministracion">
+                    <a class="nav-link dropdown-toggle" href="#" id="administrationDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Administración</a>
+                    <ul class="dropdown-menu" aria-labelledby="administrationDropdown">
+                        <li><a class="dropdown-item" onclick="cargarFormulario(40)">Inicio</a></li>
+                        <li><a class="dropdown-item" href="~/Ordenes/MisOrdenes">Inscripciones</a></li>
+                        <li><a class="dropdown-item" href="~/Ordenes/NewOrden">Asignación de cursos</a></li>
+                        <li><a class="dropdown-item" href="~/Ordenes/ListaOrdenes">Asignación de Docentes</a></li>
+                        <li class="dropdown dropend">
+                            <a class="dropdown-item dropdown-toggle" href="#" id="administrationReportsDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">Reportes</a>
+                            <ul class="dropdown-menu" aria-labelledby="administrationReportsDropdown">
+                                <li><a class="dropdown-item" href="#">Reporte de Notas</a></li>
+                                <li><a class="dropdown-item" href="#">Cuadro general de Notas</a></li>
+                                <li><a class="dropdown-item" href="#">Reporte de Alumnos</a></li>
+                                <li><a class="dropdown-item" href="#">Reporte de Asignaciones</a></li>
+                                <li><a class="dropdown-item" href="#">Reporte de Cursos</a></li>
+                                <li><a class="dropdown-item" href="#">Reporte de Ingresos</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+       <!-- Docentes Menu -->
+                <li class="nav-item dropdown" id="liDocentes">
+                    <a class="nav-link dropdown-toggle" href="#" id="teachersDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Docentes</a>
+                    <ul class="dropdown-menu" aria-labelledby="teachersDropdown">
+                        <li><a class="dropdown-item" onclick="cargarFormulario(30)">Inicio</a></li>
+                        <li><a class="dropdown-item" href="~/Produccion/Inspeccion">Asignación de tareas</a></li>
+                        <li><a class="dropdown-item" href="~/Produccion/Raspado">Calificación de tareas</a></li>
+                        <li><a class="dropdown-item" href="~/Produccion/Escareado">Vocabulario</a></li>
+                        <li><a class="dropdown-item" href="~/Produccion/Escareado">Listado de tareas</a></li>
+                        <li><a class="dropdown-item" href="~/Produccion/Escareado">Mis cursos</a></li>
+                        <li class="dropdown dropend">
+                            <a class="dropdown-item dropdown-toggle" href="#" id="teachersReportsDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">Reportes</a>
+                            <ul class="dropdown-menu" aria-labelledby="teachersReportsDropdown">
+                                <li><a class="dropdown-item" href="">Listade de Estudiantes</a></li>
+                                <li><a class="dropdown-item" href="#">Cuadro de Notas</a></li>
+                                <li><a class="dropdown-item" href="#">Cuadro general de Notas</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Alumnos Menu -->
+                <li class="nav-item dropdown" id="liAlumnos">
+                    <a class="nav-link dropdown-toggle" href="#" id="studentsDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Alumnos</a>
+                    <ul class="dropdown-menu" aria-labelledby="studentsDropdown">
+                        <li><a class="dropdown-item" onclick="cargarFormulario(20)">Inicio</a></li>
+                        <li><a class="dropdown-item" href="#">Vocabulario</a></li>
+                        <li><a class="dropdown-item" href="~/Admin/Planificacion">Diplomas</a></li>
+                        <li><a class="dropdown-item" href="~/Admin/ActualizarOrden">Notas</a></li>
+                        <li><a class="dropdown-item" href="~/Admin/ConsultaDetalladaOrden">Tareas</a></li>
+                        <li><a class="dropdown-item" href="~/Admin/ConsultaDetalladaOrden">Cursos</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto" style="margin-right:40px;">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Usuario</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" onclick="cargarFormulario(60)">Cambiar Contraseña</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="logout()">Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+</nav>

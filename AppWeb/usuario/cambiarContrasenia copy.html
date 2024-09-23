@@ -1,0 +1,132 @@
+<form id="formI">
+
+    <div class="row">
+
+        <div class=" col-md-6 col-lg-4 form-group was-validated">
+
+            <label class="form-label">Nit cliente:</label>
+            <input class="form-control" type="type" id="NitCF" name="NitCF" required value=""
+                readonly style="background-color: #C5CAE9" />
+
+        </div>
+
+
+        <div class=" col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">Cliente:</label>
+            <input class="form-control" type="type" name="ClienteF" required value=""
+                readonly style="background-color: #C5CAE9" />
+        </div>
+
+
+        <div class="col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">Direccion:</label>
+            <input class="form-control" type="type" name="DireccionCF" required value=""
+                readonly style="background-color: #C5CAE9" />
+        </div>
+
+
+        <div class="col-md-6 col-lg-4 form-group ">
+            <label class="form-label">Telefono:</label>
+            <input class="form-control" type="tel" name="TelefonoCF" value=""readonly
+                style="background-color: #C5CAE9" />
+        </div>
+
+
+        <div class="col-md-6 col-lg-4 form-group">
+            <label class="form-label">Sucursal</label>
+            <select id="coAlma" name="coAlma" class="form-control">
+                <option id="opAlma" selected value="">Seleccione la sucursal</option>
+            </select>
+            <div id="Asuc" class="alert alert-danger" role="alert" style="margin-top:5px; display: none">
+                Seleccione la sucursal.
+            </div>
+        </div>
+
+
+        <div class=" col-md-6 col-lg-4 form-group ">
+            <label class="form-label">Marca:</label>
+            <select id="CoMarca" name="Marca" required class="form-control" title="seleccione la marca">
+                <option id="opmarca" selected value="">Seleccione la marca</option>
+            </select>
+            <div id="Amarc" class="alert alert-danger" role="alert" style="margin-top:5px; display: none">
+                Seleccione la Marca
+            </div>
+
+        </div>
+
+
+        <div class=" col-md-6 col-lg-4 form-group">
+            <label class="form-label">Diseño Banda:</label>
+            <select id="trabajoList" name="DiseñoBanda" required class="form-control">
+                <option id="opdiseño" elected value="">Seleccione el diseño</option>
+            </select>
+            <div id="Adis" class="alert alert-danger" role="alert" style="margin-top:5px; display: none">
+                Seleccione un diseño de banda.
+            </div>
+        </div>
+
+
+        <div class=" col-md-6 col-lg-4 form-group ">
+            <label class="form-label">Medida:</label>
+
+            <select required id="medidaList" name="Medida" class="form-control">
+                <option id="111" selected value="">Seleccione la medida</option>
+            </select>
+            <div id="Amed" class="alert alert-danger" role="alert" style="margin-top:5px; display: none">
+                Seleccione una medida.
+            </div>
+        </div>
+
+
+        <div class=" col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">Pliegos:</label>
+            <input class="form-control" type="number" required name="Pliegos" id="Pliegos" value="" />
+            <div id="Apli" class="alert alert-danger" role="alert" style="margin-top:5px; display: none">
+                Ingrese el numero de pliegos.
+            </div>
+        </div>
+
+
+        <div class="col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">No. DOT:</label>
+            <input class="form-control" type="text" required id="NoDot" maxlength="14" name="NoDot" value=""
+                placeholder="" />
+            <div id="Adot" class="alert alert-danger" role="alert" style="margin-top:5px; display: none">
+                Ingrese el DOT.
+            </div>
+        </div>
+
+
+        <div class=" col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">No. Economico:</label>
+            <input id="NoEco" class="form-control" type="text" name="NoEco" required value="" />
+            <div id="Aeco" class="alert alert-danger" role="alert" style="margin-top:5px; display: none">
+                Ingrese el No. Economico.
+            </div>
+        </div>
+
+
+
+        <div class=" col-md-6 col-lg-4 form-group ">
+
+            <label class="form-label">Observacion:</label>
+            <input id="Observacion" class="form-control" type="text" name="Observacion" required value="" />
+
+        </div>
+        <div class=" col-md-6 col-lg-4 form-group ">
+            <label class="form-label">Reclamo:</label>
+            <select required id="chequeo" name="chequeo" class="form-control">
+                <option id="" value="1">Si</option>
+                <option id="" selected value="0">No</option>
+
+            </select>
+        </div>
+
+    </div>
+
+
+    <button type="button" id="boton1" class="btn Custombtn btn-dark w-100">Guardar e Ingresar</button>
+
+
+
+</form>

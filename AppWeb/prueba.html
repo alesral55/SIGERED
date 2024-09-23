@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://cdn.jsdelivr.net/npm/aws-amplify@latest/dist/aws-amplify.min.js"></script>
+    <script>
+
+        // Deshabilitar clic derecho
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+}, false);
+
+// Intento de bloquear la consola
+(function() {
+    var _z = console;
+    Object.defineProperty(window, "console", {
+        get: function() {
+            return _z;
+        },
+        set: function(val) {
+            _z = val;
+        }
+    });
+})();
+
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Home Page</h1>
+    <a href="login.html">Login</a> | 
+    <a href="dashboard.html">Dashboard</a> | 
+    <a href="profile.html">Profile</a>
+</body>
+</html>

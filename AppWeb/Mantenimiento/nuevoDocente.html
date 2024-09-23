@@ -1,0 +1,97 @@
+<h2>Agregar Docente</h2>
+<form id="formI">
+    <div class="row">
+
+        <div class="col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">CUI/DPI:</label>
+            <input class="form-control" type="text" name="cui" required />
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">Primer Nombre:</label>
+            <input class="form-control" type="text" name="primerNombre" required />
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group">
+            <label class="form-label">Segundo Nombre:</label>
+            <input class="form-control" type="text" name="segundoNombre" />
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">Primer Apellido:</label>
+            <input class="form-control" type="text" name="primerApellido" required />
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group">
+            <label class="form-label">Segundo Apellido:</label>
+            <input class="form-control" type="text" name="segundoApellido" />
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">Fecha de Nacimiento:</label>
+            <input class="form-control" type="date" name="fechaDeNacimiento" required />
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">Correo:</label>
+            <input class="form-control" type="email" name="correo" required />
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">Teléfono:</label>
+            <input class="form-control" type="tel" name="telefono" required />
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group">
+            <label class="form-label">Género:</label>
+            <select class="form-control" name="genero" required>
+                <option value="">Seleccione el género</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+            </select>
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group">
+            <label class="form-label">ID Rol:</label>
+            <input class="form-control" type="number" name="idRol" required />
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">Contraseña:</label>
+            <input class="form-control" type="password" name="contrasenia" required readonly />
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group was-validated">
+            <label class="form-label">Código Personal:</label>
+            <input class="form-control" type="text" name="codigoPersonal" required />
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group">
+            <label class="form-label">Estado:</label>
+            <select class="form-control" name="estado" required>
+                <option value="A">Activo</option>
+                <option value="I">Inactivo</option>
+            </select>
+        </div>
+
+        <div class="col-md-6 col-lg-4 form-group">
+            <label class="form-label">Dirección:</label>
+            <input class="form-control" type="text" name="direccion" required />
+        </div>
+        <div class="col-md-6 col-lg-4 form-group">
+
+        </div>
+        <div class="col-md-6 col-lg-4 form-group">
+            <button type="button" id="nuevoUsuario"onclick="agregarDocente()" class="btn Custombtn btn-dark w-100">Guardar e Ingresar</button>
+        </div>        <div class="col-md-6 col-lg-4 form-group">
+        </div>
+        <div class="col-md-6 col-lg-4 form-group">
+            <button type="button" id="btnLimpiar"onclick="limpiarFormulario()" class="btn btnProciegos2 btn-dark w-100">Limpiar Formulario</button>
+        </div>
+
+
+    </div>
+
+
+</form>
+

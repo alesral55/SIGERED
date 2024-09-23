@@ -1,0 +1,81 @@
+.btn-module {
+    width: 170px;
+    height: 170px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: rgba(67, 104, 184, 0.1);
+    border: none;
+    border-radius: 8px;
+    background-position: center;
+    cursor: pointer;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+/* Iconos personalizados para cada botón */
+.btnVocavulario {
+    background-image: url('/img/Botones/vocabulario.png');
+}
+.btnNotas{
+    background-image: url('/img/Botones/notas.png');
+}
+.btnTareas{
+    background-image: url('/img/Botones/tareas.png');
+}
+.btnDiplomas{
+    background-image: url('/img/Botones/diplomas.png');
+}
+.btnCursos{
+    background-image: url('/img/Botones/cursos.png');
+}
+.btnAsignacionTareas{
+    background-image: url('/img/Botones/asignacionTareas.png');
+}
+.btnCalificacionTareas{
+    background-image: url('/img/Botones/calificacionTareas.png');
+}
+.btnListadoTareas{
+    background-image: url('/img/Botones/listadoTareas.png');
+}
+.btnListadoEstudiantes{
+    background-image: url('/img/Botones/listadoEstudiantes.png');
+}
+.btnCuadroNotas{
+    background-image: url('/img/Botones/cuadroNotas.png');
+}
+.btnCuadroGeneralNotas{
+    background-image: url('/img/Botones/notasGenerales.png');
+}
+.btnInscripciones{
+    background-image: url('/img/Botones/inscripcion.png');
+}
+.btnProfesores{
+    background-image: url('/img/Botones/profesor.png');
+}
+.btnIngresos{
+    background-image: url('/img/Botones/reporteIngresos.png');
+}
+.btnAsignaciones{
+    background-image: url('/img/Botones/asignaciones.png');
+}
+
+
+
+.btn-module:hover {
+    width: 190px;
+    height: 190px;
+    background-color: rgba(40, 55, 90, 0.116);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .btn-module {
+        width: 150px;
+        height: 150px;
+    }
+}
+@media (max-width: 576px) {
+    .btn-module {
+        width: 100px;
+        height: 100px;
+    }
+}
