@@ -1,0 +1,74 @@
+<h2>Mantenimiento de Roles</h2>
+
+
+<br>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Id Rol</th>
+            <th>Nombre Rol</th>
+            <th>Accesos</th>            
+            <th>Acciones</th>
+
+
+        </tr>
+    </thead>
+    <tbody id="tablaPersonas"></tbody>
+</table>
+
+<div class="row">
+
+    <div class="col-lg-6">
+        <h3>Accesos  </h3>  <h3 id="Selccionado"> Rol Seleccionado:</h3>
+        <input type="hidden" name="irRolH" id="idRolH" value="" />
+        <div class="form-group" id="nuevoRol" style="display: none;">
+            <label class="form-label">Escriba el Nombre que tendra el nuevo Rol:</label>
+            <div class="d-flex" role="search">
+
+                <input class="form-control" style="border-top:5px" type="search" id="descripcionI" placeholder="Descripcion del nuevo Rol" name="descripcionI" value="" />
+                <button class="btn btnGuardar" onclick="InsertarRol()"></button>
+
+            </div>
+        </div>
+        <table id="tablaRoles" class="table align-middle table-striped table-hover">
+            <thead>
+                <tr>
+                    <td>Id Rol</td>
+                    <td>Descripción de Rol</td>
+                    <td><button class="btn btnAgregarUsr" onclick="mostrarDiv()"></button></td>
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+
+
+    </div>
+    <div class="col-lg-6">
+        <h3>Roles</h3>
+        <div class="d-flex" role="search">
+            <input class="form-control" style="border-top:5px" type="search" id="descripcionDeRol" name="descripcionDeRol" value="" />
+            <button class="btn btnActualizar" onclick="ActualizarRol()"></button>
+
+        </div>
+
+
+
+        <table id="tablaAccesos" class="table align-middle table-striped table-hover">
+            <thead>
+                <tr>
+                    <td>Activos</td>
+                    <td>Id Acceso</td>
+                    <td>Descripcion de Acceso</td>
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

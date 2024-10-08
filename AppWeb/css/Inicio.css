@@ -127,59 +127,71 @@ tr:hover {
     background-color: #238CCC !important; /* Color de fondo personalizado */
     color: white !important;
 }
+
+.modal{
+    color:black;
+}
 /*------------------*/
-.logologin {
-    width: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    margin: 0 auto;
-  }
-  
-  .Login {
-    width: 360px;
-    height: min-content;
-    padding: 20px;
-    border-radius: 15px;
-    background: rgb(220, 231, 255, 0.8);
-    margin-bottom: 30px;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .lblLogin {
-    text-align: center;
-  }
-  
-  .lblBienvenida {
-    font-size: small;
-    text-align: center;
-  }
-  
-  .btn.Custombtn {
-    background: rgba(220, 30, 37, .97);
-  }
 
-
-  .rl-loading-container {
+/* Fondo oscuro cuando el modal está activo */
+.rl-modal {
     display: none; /* Oculto por defecto */
     justify-content: center;
     align-items: center;
-    position: fixed; /* Fijo para cubrir toda la pantalla */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
-    z-index: 9999; /* Asegúrate de que esté por encima de otros elementos */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente oscuro */
+    z-index: 9999; /* Para que aparezca por encima de otros elementos */
 }
 
-.rl-loading-thumb {
-    width: 10px;
-    height: 40px;
-    background-color: #41f3fd;
-    margin: 4px;
-    box-shadow: 0 0 12px 3px #0882ff;
-    animation: rl-loading 1.5s ease-in-out infinite;
+/* Estilos para el contenedor de reautenticación (similar al login) */
+.Login {
+    width: 360px;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(220, 231, 255, 0.8); /* Fondo con transparencia */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra para mayor profundidad */
+    margin-bottom: 30px;
+    text-align: center;
+    color: black;
+}
+
+/* Estilo del logo dentro del modal */
+.logologin {
+    width: 150px;
+    margin: 0 auto 20px auto;
+}
+
+/* Estilos de los labels y botones */
+.lblLogin {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.lblBienvenida {
+    font-size: 0.9em;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+
+/* Ocultar mensajes por defecto */
+#CorreoMsgReauth, #ContraseniaMsgReauth, #IncorrectReauth {
+    display: none;
+    color: red;
+    font-size: 0.9em;
+    text-align: left;
+    margin-bottom: 10px;
 }

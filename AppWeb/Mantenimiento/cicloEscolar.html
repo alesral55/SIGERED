@@ -1,0 +1,65 @@
+<h2>Ciclo Escolar</h2>
+<br>
+
+
+<div class="row"></div>
+    <div class="col-md-6 col-lg-4 form-group">
+        <button class="btn Custombtn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#modalInsertarPersona">
+            Crear Ciclo Escolar
+        </button>
+    </div>   
+    <div class="col-md-6 col-lg-4 form-group">
+    </div>  <div class="col-md-6 col-lg-4 form-group">
+    </div> 
+</div>
+     
+<br>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>descripcion</th>
+            <th>fecharInicio</th>            
+            <th>fechaFin</th>
+            <th>anio</th>
+
+        </tr>
+    </thead>
+    <tbody id="tablaCiclos"></tbody>
+</table>
+
+
+<!-- Modal para Insertar Persona -->
+<div class="modal fade" id="modalInsertarPersona" tabindex="-1" role="dialog" aria-labelledby="modalInsertarPersonaLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalInsertarPersonaLabel">Crear Ciclo Escolar</h5>
+
+            </div>
+            <div class="modal-body">
+                <form id="formI">
+                    <div class="form-group">
+                        <label for="descripcion">Descripcion Ciclo Escolar</label>
+                        <input type="text" class="form-control" name="descripcion" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecharInicio">Fecha de Inicio</label>
+                        <input type="date" class="form-control" name="fecharInicio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaFin">Fecha de Fin</label>
+                        <input type="date" class="form-control" name="fechaFin" required>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="CrearCiclo()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

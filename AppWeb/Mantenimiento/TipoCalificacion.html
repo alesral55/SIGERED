@@ -1,0 +1,53 @@
+<h2>Tipo de Calificacion</h2>
+<br>
+
+<div class="row">
+    <div class="col-md-6 col-lg-4 form-group">
+        <button type="button" id="nuevoUsuario"onclick="abrirModalInsertar()" class="btn Custombtn btn-dark w-100">Agregar Nuevo Tipo de Calificacion</button>
+    </div>   
+    <div class="col-md-6 col-lg-4 form-group">
+    </div>  <div class="col-md-6 col-lg-4 form-group">
+        <button type="button" id="btnCamioEstado"onclick="generarTabla('I')" class="btn btnProciegos2 btn-dark w-100">Tipo de Calificacion</button>
+    </div> 
+</div>
+     
+<br>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>nombre</th>
+            <th>Acciones</th>
+
+        </tr>
+    </thead>
+    <tbody id="tablaMantenimietos"></tbody>
+</table>
+
+
+<!-- Modal para Insertar Persona -->
+<div class="modal fade" id="modalMantenimiento" tabindex="-1" role="dialog" aria-labelledby="modalInsertarPersonaLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModal">Agregar nuevo Tipo de Calificacion</h5>
+
+            </div>
+            <div class="modal-body">
+                <form id="formI">
+                    <div class="form-group">
+                        <label for="nombre">Nombre de Tipo de Calificacion</label>
+                        <input type="hidden" class="form-control" name="idTipoCalificacion" >
+                        <input type="text" class="form-control" name="descripcion" required>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnRojo btn-dark" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnGuardar" class="btn btnAzul btn-dark" onclick="CrearMantenimiento()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

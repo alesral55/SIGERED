@@ -49,72 +49,67 @@ function generarAlerta(datos){
 
 }
 
-// Cuando el token expira, mostrar el modal de reautenticación
+
+
+  
 function mostrarModalReautenticacion() {
-    const loader = document.getElementById('loader');
-   loader.style.display = 'flex'; 
+    const modal = document.getElementById('modalReautenticacion');
+    if (modal) {
+        modal.style.display = 'flex'; // Mostrar el modal centrado
+    }
+}
 
-  }
-  
 
-  
+function ocultarModalReautenticacion() {
+    const modal = document.getElementById('modalReautenticacion');
+    if (modal) {
+        modal.style.display = 'none'; // Ocultar el modal
+    }
+}
+
+
+// Función para reautenticar al usuario
 function reautenticar() {
-    // Selecciona el elemento del loader
     const Correo = document.getElementById('CorreoReauth').value;
     const Contrasenia = document.getElementById('ContraseniaReauth').value;
 
     if (!Correo) {
         document.getElementById('CorreoMsgReauth').style.display = 'block';
         return;
+    } else {
+        document.getElementById('CorreoMsgReauth').style.display = 'none';
     }
+    
     if (!Contrasenia) {
         document.getElementById('ContraseniaMsgReauth').style.display = 'block';
         return;
+    } else {
+        document.getElementById('ContraseniaMsgReauth').style.display = 'none';
     }
-
-
-const loginPath = urlConsulta+'/login';
-
-     fetch(loginPath, {
-
+    const loginPath = urlConsulta + '/login'
+    fetch(loginPath, {
         method: 'POST',
-        body: JSON.stringify({
-            correo: Correo,
-            contrasenia: Contrasenia
-        }),
+        body: JSON.stringify({ correo: Correo, contrasenia: Contrasenia }),
         headers: {
             'Content-Type': 'application/json'
         }
     })
-        .then(function (respuesta) {
-            if (respuesta.ok) {
-                return respuesta.json();
-            }
-        })
-        .then(function (datos) {
-            console.log(datos);
-            if (datos.nombre) {
-                // Guardar datos en sessionStorage
-                sessionStorage.setItem('nombre', datos.nombre);
-                sessionStorage.setItem('idRol', datos.idRol);
-                sessionStorage.setItem('accesos', datos.accesos);
-                sessionStorage.setItem('cui', datos.cui);
-                sessionStorage.setItem('requiereCambio', datos.requiereCambio);
-                sessionStorage.setItem('token', datos.token);
-                const loader = document.getElementById('loader');
-                loader.style.display = 'none'; 
-         }
-            else {
-                document.getElementById('CorreoMsgReauth').style.display = 'none';
-                document.getElementById('ContraseniaMsgReauth').style.display = 'none';
-                document.getElementById('IncorrectReauth').style.display = 'block';
-            }
-
-        })
-        .catch(function (error) {
-            console.error('Error:', error);
-        })
-
-
+    .then(function (respuesta) {
+        if (respuesta.ok) {
+            return respuesta.json();
+        }
+    })
+    .then(function (datos) {
+        if (datos && datos.token) {
+            // Guardar el token y otros datos en sessionStorage
+            sessionStorage.setItem('token', datos.token);
+            ocultarModalReautenticacion(); // Ocultar modal tras éxito
+        } else {
+            document.getElementById('IncorrectReauth').style.display = 'block';
+        }
+    })
+    .catch(function (error) {
+        console.error('Error en la reautenticación:', error);
+    });
 }
 

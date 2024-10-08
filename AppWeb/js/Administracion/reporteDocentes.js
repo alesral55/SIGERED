@@ -1,6 +1,10 @@
 // Variable global para almacenar los datos obtenidos
+if (typeof datosPersonas === 'undefined') {
+    var datosPersonas = []; // Declárala si no existe
+} else {
+    datosPersonas.length = 0; // Límpiala si ya existe
+}
 
-let datosPersonas = [];
 obtenerPersonas()
 // Función para obtener todas las personas
 function obtenerPersonas(page = 1, pageSize = 10) {

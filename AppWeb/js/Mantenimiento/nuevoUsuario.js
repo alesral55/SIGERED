@@ -1,8 +1,8 @@
  function agregarDocente() {
     document.getElementsByName("contrasenia").value = document.getElementsByName("cui").value
-    const form = document.getElementById('formI');
-    const formData2 = new FormData(form);
-    const data = Object.fromEntries(formData2.entries());
+    let form = document.getElementById('formI');
+    let formData2 = new FormData(form);
+    let data = Object.fromEntries(formData2.entries());
 
     if(!data.cui||!data.primerNombre||!data.fechaDeNacimiento||!data.correo||!data.idRol||!data.codigoPersonal||!data.genero){AWarning("Debe ingresar los campos obligatorios");return}
 

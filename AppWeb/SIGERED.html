@@ -38,7 +38,30 @@
         </footer>
     </div>
 
-
+    <div id="modalReautenticacion" class="rl-modal">
+        <div class="Login">
+            <div>
+                <!-- Aquí puedes poner un logo o imagen si deseas -->
+                <img  class="logologin" src="/img/logo.png" alt="Logo">
+            </div>
+            <div class="lblLogin">
+                <h3>Reautenticación</h3>
+            </div>
+            <div class="lblBienvenida">
+                <p>Su sesión ha expirado. Por favor, ingrese sus credenciales para continuar.</p>
+            </div>
+            <form id="formReauth">
+                <input type="email" id="CorreoReauth" placeholder="Correo" />
+                <div id="CorreoMsgReauth" style="display:none;">Correo requerido</div>
+                <input type="password" id="ContraseniaReauth" placeholder="Contraseña" />
+                <div id="ContraseniaMsgReauth" style="display:none;">Contraseña requerida</div>
+                <div id="IncorrectReauth" style="display:none;">Credenciales incorrectas</div>
+            </form>
+            <button class="btn Custombtn btn-dark w-100" onclick="reautenticar()">Reautenticar</button>
+        </div>
+    </div>
+    
+<!--
     <div class="rl-loading-container" id="loader" style="display:none;">
         <div class="FLogin">
             <div class="Login">
@@ -78,7 +101,9 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div>    
+-->
+
 
     <script src="/js/partials.js"></script>
 

@@ -24,6 +24,16 @@
 //const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
 const urlConsulta = 'http://localhost:3000'
 const personasPath = urlConsulta + '/persona';
+const rolesPath = urlConsulta + '/rol';
+const cicloPath = urlConsulta + '/ciclo';
+const nivelesPath = urlConsulta + '/nivel'
+const tpDocPath = urlConsulta + '/tpDoc'
+const tpSisPago = urlConsulta + '/tpSisPago'
+const tpCalificacionPath = urlConsulta + '/tpCalificacion'
+const tpTareaPath = urlConsulta +'/tpTarea'
+const tpEscalaPath = urlConsulta +'/tpEscala'
+const grupoEtnicoPath =  urlConsulta +'/gpEtnico'
+const discapacidadPath =  urlConsulta +'/discapacidad'
 
 function cargarInicio() {
     const cambio = sessionStorage.getItem('requiereCambio')
@@ -47,7 +57,7 @@ function cargarInicio() {
             cargarFormulario(20)
         }
         if (rol == 1) {
-            cargarFormulario(40)
+            cargarFormulario(50)
         }
 
     }
@@ -80,10 +90,10 @@ function cargarFormulario(direccion) {
         case 40:
             url = '/componentes/inicioAdministracion.html'
             break;
-            case 47:
-                url = '/Administracion/reporteDocentes.html'
-                src = '/js/Administracion/reporteDocentes.js'
-                break;
+        case 47:
+            url = '/Administracion/reporteDocentes.html'
+            src = '/js/Administracion/reporteDocentes.js'
+            break;
         case 50:
             url = '/componentes/inicioMantenimiento.html'
             break;
@@ -99,9 +109,61 @@ function cargarFormulario(direccion) {
             url = '/Mantenimiento/cursos.html'
             src = '/js/Mantenimiento/cursos.js'
             break;
+        case 54:
+            url = '/Mantenimiento/roles.html'
+            src = '/js/Mantenimiento/roles.js'
+            break;
+        case 55:
+            url = '/Mantenimiento/cicloEscolar.html'
+            src = '/js/Mantenimiento/cicloEscolar.js'
+            break;
+        case 56:
+            url = '/Mantenimiento/niveles.html'
+            src = '/js/Mantenimiento/niveles.js'
+            break;
+        case 57:
+            url = '/Mantenimiento/tipoEscala.html'
+            src = '/js/Mantenimiento/niveles.js'
+            break;
+        case 58:
+            url = '/Mantenimiento/tipoTarea.html'
+            src = '/js/Mantenimiento/niveles.js'
+            break;
+        case 59:
+            url = '/Mantenimiento/tipoDocumento.html'
+            src = '/js/Mantenimiento/tipoDocumento.js'
+            break;
+        case 61:
+            url = '/Mantenimiento/sistemaDePago.html'
+            src = '/js/Mantenimiento/sistemaDePago.js'
+            break;
+        case 62:
+            url = '/Mantenimiento/TipoCalificacion.html'
+            src = '/js/Mantenimiento/TipoCalificacion.js'
+            break;
+            case 63:
+                url = '/Mantenimiento/TipoTarea.html'
+                src = '/js/Mantenimiento/TipoTarea.js'
+                break;
+                case 64:
+                    url = '/Mantenimiento/TipoEscala.html'
+                    src = '/js/Mantenimiento/TipoEscala.js'
+                    break;
+
+                    case 65:
+                        url = '/Mantenimiento/GrupoEtnico.html'
+                        src = '/js/Mantenimiento/GrupoEtnico.js'
+                        break;
+                        case 66:
+                            url = '/Mantenimiento/Discapacidad.html'
+                            src = '/js/Mantenimiento/Discapacidad.js'
+                            break;
+
+
         case 60:
             url = '/usuario/cambiarContrasenia.html'
             break;
+
         default:
             alert('No existe la ruta')
             return
