@@ -105,3 +105,17 @@ function formatearFecha(fechaISO) {
     const anio = fecha.getUTCFullYear();
     return `${dia}/${mes}/${anio}`;
 }
+
+function formatearFecha2(fecha) {
+    // Si `fecha` es un objeto Date, se formatea directamente.
+    if (typeof fecha === 'string' || fecha instanceof Date) {
+        const fechaObj = new Date(fecha); // Asegúrate de que es un objeto Date
+        const year = fechaObj.getFullYear();
+        const month = String(fechaObj.getMonth() + 1).padStart(2, '0'); // Mes empieza en 0
+        const day = String(fechaObj.getDate()+1).padStart(2, '0');
+        
+        // Retornar en el formato que los campos de tipo date requieren: YYYY-MM-DD
+        return `${year}-${month}-${day}`;
+    }
+    return ''; // Si no es una fecha válida, retornar un string vacío
+}

@@ -30,10 +30,14 @@ const nivelesPath = urlConsulta + '/nivel'
 const tpDocPath = urlConsulta + '/tpDoc'
 const tpSisPago = urlConsulta + '/tpSisPago'
 const tpCalificacionPath = urlConsulta + '/tpCalificacion'
-const tpTareaPath = urlConsulta +'/tpTarea'
-const tpEscalaPath = urlConsulta +'/tpEscala'
-const grupoEtnicoPath =  urlConsulta +'/gpEtnico'
-const discapacidadPath =  urlConsulta +'/discapacidad'
+const tpTareaPath = urlConsulta + '/tpTarea'
+const tpEscalaPath = urlConsulta + '/tpEscala'
+const grupoEtnicoPath = urlConsulta + '/gpEtnico'
+const discapacidadPath = urlConsulta + '/discapacidad'
+const cursosPath = urlConsulta +  '/cursos'
+const horariosPath =urlConsulta +'/horarios'
+const seccionesPath = urlConsulta +'/secciones'
+const cursosDisponiblesPath =  urlConsulta +'/cursosDisponibles'
 
 function cargarInicio() {
     const cambio = sessionStorage.getItem('requiereCambio')
@@ -106,8 +110,8 @@ function cargarFormulario(direccion) {
             src = '/js/Mantenimiento/actualizarDocente.js'
             break;
         case 53:
-            url = '/Mantenimiento/cursos.html'
-            src = '/js/Mantenimiento/cursos.js'
+            url = '/Mantenimiento/Cursos.html'
+            src = '/js/Mantenimiento/Cursos.js'
             break;
         case 54:
             url = '/Mantenimiento/roles.html'
@@ -141,24 +145,35 @@ function cargarFormulario(direccion) {
             url = '/Mantenimiento/TipoCalificacion.html'
             src = '/js/Mantenimiento/TipoCalificacion.js'
             break;
-            case 63:
-                url = '/Mantenimiento/TipoTarea.html'
-                src = '/js/Mantenimiento/TipoTarea.js'
+        case 63:
+            url = '/Mantenimiento/TipoTarea.html'
+            src = '/js/Mantenimiento/TipoTarea.js'
+            break;
+        case 64:
+            url = '/Mantenimiento/TipoEscala.html'
+            src = '/js/Mantenimiento/TipoEscala.js'
+            break;
+
+        case 65:
+            url = '/Mantenimiento/GrupoEtnico.html'
+            src = '/js/Mantenimiento/GrupoEtnico.js'
+            break;
+        case 66:
+            url = '/Mantenimiento/Discapacidad.html'
+            src = '/js/Mantenimiento/Discapacidad.js'
+            break;
+            case 67:
+                url = '/Mantenimiento/Horarios.html'
+                src = '/js/Mantenimiento/Horarios.js'
                 break;
-                case 64:
-                    url = '/Mantenimiento/TipoEscala.html'
-                    src = '/js/Mantenimiento/TipoEscala.js'
+                case 68:
+                    url = '/Mantenimiento/Secciones.html'
+                    src = '/js/Mantenimiento/Secciones.js'
                     break;
-
-                    case 65:
-                        url = '/Mantenimiento/GrupoEtnico.html'
-                        src = '/js/Mantenimiento/GrupoEtnico.js'
-                        break;
-                        case 66:
-                            url = '/Mantenimiento/Discapacidad.html'
-                            src = '/js/Mantenimiento/Discapacidad.js'
-                            break;
-
+                    case 69:
+                    url = '/Mantenimiento/CursosDisponibles.html'
+                    src = '/js/Mantenimiento/CursosDisponibles.js'
+                    break;
 
         case 60:
             url = '/usuario/cambiarContrasenia.html'

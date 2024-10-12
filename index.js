@@ -11,14 +11,18 @@ import { Roles } from './Mantenimiento/Roles.js';
 import { obtenerRoles } from './Mantenimiento/Roles.js';
 import { Ciclos } from './Mantenimiento/CicloEscolar.js';
 import { Niveles } from './Mantenimiento/Nieveles.js'
-import { TipoDoc } from './Mantenimiento/TipoDocumento.js'; 
-import { SistemaPago} from './Mantenimiento/SistemaDePago.js'
+import { TipoDoc } from './Mantenimiento/TipoDocumento.js';
+import { SistemaPago } from './Mantenimiento/SistemaDePago.js'
 import { TipoCalificacion } from './Mantenimiento/Tipocalificacion.js';
 import { TipoTarea } from './Mantenimiento/TipoTarea.js';
 import { TipoEscala } from './Mantenimiento/TipoEscala.js';
 import { GrupoEtnico } from './Mantenimiento/GrupoEtnico.js';
 import { Discapacidad } from './Mantenimiento/Discapacidad.js';
-
+import { Cursos } from './Mantenimiento/Cursos.js'
+import { Horarios } from './Mantenimiento/Horarios.js';
+import { Secciones } from './Mantenimiento/Secciones.js';
+import { CursosDiponibles } from './Mantenimiento/CursosDisponibles.js';
+import { ArchivosS3 } from './ArchivosS3.js';
 
 const loginPath = '/login';
 const registerPath = '/register';
@@ -30,14 +34,17 @@ const rolesPath = '/rol'
 const ciloPath = '/ciclo'
 const nivelPath = '/nivel'
 const tpDocPath = '/tpDoc'
-const tpSisPago ='/tpSisPago'
+const tpSisPago = '/tpSisPago'
 const tpCalificacionPath = '/tpCalificacion'
 const tpTareaPath = '/tpTarea'
 const tpEscalaPath = '/tpEscala'
 const grupoEtnicoPath = '/gpEtnico'
 const discapacidadPath = '/discapacidad'
-
-
+const cursosPath = '/cursos'
+const horariosPath = '/horarios'
+const seccionesPath ='/secciones'
+const cursosDisponiblesPath = '/cursosDisponibles'
+const archivosS3Path = '/archivosS3'
 
 export const handler = async (event) => {
   let response;
@@ -188,7 +195,7 @@ export const handler = async (event) => {
         if (nivelesResponse) {
 
           response = buildResponse(200, nivelesResponse);
-        } 
+        }
         break;
       ///////////////REGION DE TIPOdoc////////////////////////////////
       case event.path === tpDocPath:
@@ -209,7 +216,7 @@ export const handler = async (event) => {
         if (tpDocResponse) {
 
           response = buildResponse(200, tpDocResponse);
-        } 
+        }
         break;
 
       ///////////////REGION SISTEMA DE PAGO////////////////////////////////
@@ -232,7 +239,7 @@ export const handler = async (event) => {
         if (tpSistemaPagoResponse) {
 
           response = buildResponse(200, tpSistemaPagoResponse);
-        } 
+        }
         break;
 
       ///////////////REGION Tipo de Calificacion////////////////////////////////
@@ -255,9 +262,9 @@ export const handler = async (event) => {
         if (tpCalificacionResponse) {
 
           response = buildResponse(200, tpCalificacionResponse);
-        } 
+        }
         break;
-    
+
       ///////////////REGION Tipo Tarea////////////////////////////////
       case event.path === tpTareaPath:
         console.log('TipoTarea');
@@ -278,7 +285,7 @@ export const handler = async (event) => {
         if (tpTareaResponse) {
 
           response = buildResponse(200, tpTareaResponse);
-        } 
+        }
         break;
 
       ///////////////REGION Tipo Escala////////////////////////////////
@@ -301,7 +308,7 @@ export const handler = async (event) => {
         if (tpEscalaResponse) {
 
           response = buildResponse(200, tpEscalaResponse);
-        } 
+        }
         break;
       ///////////////REGION GRUPO ETNICO////////////////////////////////
       case event.path === grupoEtnicoPath:
@@ -323,10 +330,10 @@ export const handler = async (event) => {
         if (tpGrupoEtnicoResponse) {
 
           response = buildResponse(200, tpGrupoEtnicoResponse);
-        } 
+        }
         break;
 
-              ///////////////REGION GRUPO ETNICO////////////////////////////////
+      ///////////////REGION GRUPO ETNICO////////////////////////////////
       case event.path === discapacidadPath:
         console.log('Discapacidad');
         let discapacidadResponse
@@ -346,7 +353,112 @@ export const handler = async (event) => {
         if (discapacidadResponse) {
 
           response = buildResponse(200, discapacidadResponse);
-        } 
+        }
+        break;
+
+      ///////////////REGION CURSOS////////////////////////////////
+      case event.path === cursosPath:
+        console.log('Cursos');
+        let cursosResponse
+        if (event.httpMethod === 'GET') { cursosResponse = await Cursos('GET') }
+        else if (event.httpMethod === 'POST') {
+          const tpMantenimientoBody = JSON.parse(event.body);
+          const verification = await verifyToken(tpMantenimientoBody.usrCui, tpMantenimientoBody.tkn);
+          console.log(verification);
+          if (verification.verified === false) {
+            response = buildResponse(401, { auth: 0, message: 'Token no válido, inicia session de nuevo' });
+          } else {
+            console.log('entra al esle tdiscapacidad');
+            cursosResponse = await Cursos(tpMantenimientoBody)
+          }
+        }
+
+        if (cursosResponse) {
+
+          response = buildResponse(200, cursosResponse);
+        }
+        break;
+
+      ///////////////REGION HORARAIOS////////////////////////////////
+      case event.path === horariosPath:
+        console.log('horarios');
+        let horariosResponse
+        if (event.httpMethod === 'GET') { horariosResponse = await Horarios('GET') }
+        else if (event.httpMethod === 'POST') {
+          const tpMantenimientoBody = JSON.parse(event.body);
+          const verification = await verifyToken(tpMantenimientoBody.usrCui, tpMantenimientoBody.tkn);
+          console.log(verification);
+          if (verification.verified === false) {
+            response = buildResponse(401, { auth: 0, message: 'Token no válido, inicia session de nuevo' });
+          } else {
+            console.log('entra al esle horarios');
+            horariosResponse = await Horarios(tpMantenimientoBody)
+          }
+        }
+
+        if (horariosResponse) {
+
+          response = buildResponse(200, horariosResponse);
+        }
+        break;
+      ///////////////REGION Secciones////////////////////////////////
+      case event.path === seccionesPath:
+        console.log('secciones');
+        let seccionesResponse
+        if (event.httpMethod === 'GET') { seccionesResponse = await Secciones('GET') }
+        else if (event.httpMethod === 'POST') {
+          const tpMantenimientoBody = JSON.parse(event.body);
+          const verification = await verifyToken(tpMantenimientoBody.usrCui, tpMantenimientoBody.tkn);
+          console.log(verification);
+          if (verification.verified === false) {
+            response = buildResponse(401, { auth: 0, message: 'Token no válido, inicia session de nuevo' });
+          } else {
+            console.log('entra al esle horarios');
+            seccionesResponse = await Secciones(tpMantenimientoBody)
+          }
+        }
+
+        if (seccionesResponse) {
+
+          response = buildResponse(200, seccionesResponse);
+        }
+        break;
+      ///////////////REGION Secciones////////////////////////////////
+      case event.path === cursosDisponiblesPath:
+        console.log('cursos Disponibels');
+        let cursosDisponiblesResponse
+        if (event.httpMethod === 'GET') { cursosDisponiblesResponse = await CursosDiponibles('GET') }
+        else if (event.httpMethod === 'POST') {
+          const tpMantenimientoBody = JSON.parse(event.body);
+          const verification = await verifyToken(tpMantenimientoBody.usrCui, tpMantenimientoBody.tkn);
+          console.log(verification);
+          if (verification.verified === false) {
+            response = buildResponse(401, { auth: 0, message: 'Token no válido, inicia session de nuevo' });
+          } else {
+            console.log('entra al esle horarios');
+            cursosDisponiblesResponse = await CursosDiponibles(tpMantenimientoBody)
+          }
+        }
+
+        if (cursosDisponiblesResponse) {
+
+          response = buildResponse(200, cursosDisponiblesResponse);
+        }
+        break;
+
+      ///////////////REGION Secciones////////////////////////////////
+      case event.path === archivosS3Path:
+        console.log('ArchivosS3');
+        let S3Response
+
+        const MantenimientoBody = JSON.parse(event.body);
+
+        S3Response = await ArchivosS3(MantenimientoBody)
+
+        if (S3Response) {
+
+          response = buildResponse(200, S3Response);
+        }
         break;
       ///////////////FIN ////////////////////////////////
       default:

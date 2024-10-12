@@ -24,13 +24,23 @@ function Login() {
     loader.style.display = 'flex'; // Muestra el loader
     const Correo = document.getElementById('Correo').value;
     const Contrasenia = document.getElementById('Contrasenia').value;
+    document.getElementById('CorreoMsg').style.display = 'none';
+    document.getElementById('ContraseniaMsg').style.display = 'none';
 
     if (Correo === '') {
         document.getElementById('CorreoMsg').style.display = 'block';
+                    // Oculta el loader después de un retraso
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 500); // Retraso de 500 ms, ajusta según sea necesario
         return;
     }
     if (Contrasenia === '') {
         document.getElementById('ContraseniaMsg').style.display = 'block';
+                    // Oculta el loader después de un retraso
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 500); // Retraso de 500 ms, ajusta según sea necesario
         return;
     }
 

@@ -29,8 +29,13 @@ document.addEventListener('contextmenu', function(e) {
 </head>
 <body>
     <h1>Welcome to the Home Page</h1>
-    <a href="login.html">Login</a> | 
-    <a href="dashboard.html">Dashboard</a> | 
-    <a href="profile.html">Profile</a>
+
+    <form id="uploadForm">
+        <input type="file" id="fileInput" />
+        <button type="button" onclick="uploadFile()">Subir archivo</button>
+    </form>
+    
+    <div id="fileLink" style="margin-top: 20px;"></div>
+    
 </body>
 </html>
