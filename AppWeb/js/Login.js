@@ -48,7 +48,8 @@ function Login() {
     const encryptedPassword = CryptoJS.AES.encrypt(Contrasenia, 'AELMVCPIWTPCP').toString();
     //alert(encryptedPassword);
         //const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
-        const urlConsulta = 'http://localhost:3000'
+        //const urlConsulta = 'http://localhost:3000'
+        const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
 
 const loginPath = urlConsulta+'/login';
 

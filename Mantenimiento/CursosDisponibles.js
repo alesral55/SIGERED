@@ -9,7 +9,7 @@ export async function CursosDiponibles(mantenimientoBody) {
    // console.log('entra al nevel');
     if(mantenimientoBody ==='GET'){
         const ObtenerMantenimiento = await obtenerMantenimiento();
-        console.log(ObtenerMantenimiento);
+        //console.log(ObtenerMantenimiento);
         return ObtenerMantenimiento;
     }
     else if(mantenimientoBody.metodo ==1){

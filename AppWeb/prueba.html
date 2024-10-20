@@ -5,27 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <script src="https://cdn.jsdelivr.net/npm/aws-amplify@latest/dist/aws-amplify.min.js"></script>
-    <script>
-
-        // Deshabilitar clic derecho
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-}, false);
-
-// Intento de bloquear la consola
-(function() {
-    var _z = console;
-    Object.defineProperty(window, "console", {
-        get: function() {
-            return _z;
-        },
-        set: function(val) {
-            _z = val;
-        }
-    });
-})();
-
-    </script>
+    
 </head>
 <body>
     <h1>Welcome to the Home Page</h1>
@@ -37,5 +17,54 @@ document.addEventListener('contextmenu', function(e) {
     
     <div id="fileLink" style="margin-top: 20px;"></div>
     
+
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+    
+            if (!file) {
+                alert("Por favor selecciona un archivo");
+                return;
+            }
+    
+            // Leer el archivo como base64
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async function () {
+                const base64File = reader.result.split(',')[1]; // Quitar el prefijo de data
+    
+                const response = await fetch('YOUR_LAMBDA_ENDPOINT', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': file.type,
+                        'file-name': file.name,
+                    },
+                    body: base64File,
+                });
+    
+                const result = await response.json();
+                if (response.ok) {
+                    const fileLink = document.getElementById('fileLink');
+                    
+                    // Si es una imagen
+                    if (file.type.startsWith('image/')) {
+                        fileLink.innerHTML = `<img src="${result.fileUrl}" alt="Archivo subido" width="300" />`;
+                    }
+                    // Si es un PDF
+                    else if (file.type === 'application/pdf') {
+                        fileLink.innerHTML = `<embed src="${result.fileUrl}" width="600" height="400" type="application/pdf" />`;
+                    }
+                    // Para otros tipos de archivos, muestra solo el enlace
+                    else {
+                        fileLink.innerHTML = `<a href="${result.fileUrl}" target="_blank">Ver archivo subido</a>`;
+                    }
+                } else {
+                    alert('Error al subir el archivo: ' + result.message);
+                }
+            };
+        }
+    </script>
+
 </body>
 </html>

@@ -23,6 +23,7 @@ import { Horarios } from './Mantenimiento/Horarios.js';
 import { Secciones } from './Mantenimiento/Secciones.js';
 import { CursosDiponibles } from './Mantenimiento/CursosDisponibles.js';
 import { ArchivosS3 } from './ArchivosS3.js';
+import { nuevoPago } from './Pagos.js';
 
 const loginPath = '/login';
 const registerPath = '/register';
@@ -45,11 +46,12 @@ const horariosPath = '/horarios'
 const seccionesPath ='/secciones'
 const cursosDisponiblesPath = '/cursosDisponibles'
 const archivosS3Path = '/archivosS3'
+const pagoPath = '/pago'
 
 export const handler = async (event) => {
   let response;
   console.log("entra al index");
-  console.log(event);
+  //console.log(event);
 
   try {
     switch (true) {
@@ -460,6 +462,26 @@ export const handler = async (event) => {
           response = buildResponse(200, S3Response);
         }
         break;
+
+      //////////////nuevo pago //////////////////////////
+
+      case event.httpMethod === 'POST' && event.path === pagoPath:
+        const pagoBody = JSON.parse(event.body);
+        console.log('ingreso al pago');
+        // Agregar await para esperar a la resolución de la promesa
+        const pagoResult = await nuevoPago(pagoBody);
+
+        console.log(pagoResult, "respuesta de la validación");
+
+        // Verificar si `loginResult` es null o no
+        if (pagoResult) {
+          response = buildResponse(200, pagoResult);
+        } else {
+          response = buildResponse(200, { message: 'Credenciales incorrectas' });
+        }
+
+        break;
+
       ///////////////FIN ////////////////////////////////
       default:
         response = buildResponse(404, { message: 'Ruta no encontrada' });

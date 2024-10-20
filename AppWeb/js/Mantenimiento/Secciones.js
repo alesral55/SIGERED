@@ -381,7 +381,7 @@ function abrirModalInsertar() {
     document.getElementById('btnGuardar').onclick = function () {
         CrearMantenimiento();
     };
-    document.getElementById('tituloModal').innerText = 'Agregar Horario';
+    document.getElementById('tituloModal').innerText = 'Agregar Seccion';
 }
 
 function abrirModalEditar(id) {
@@ -401,6 +401,6 @@ function abrirModalEditar(id) {
         document.getElementById('btnGuardar').onclick = function () {
             ActualizarMantenimiento();
         };
-        document.getElementById('tituloModal').innerText = 'Actualizar Horario';
+        document.getElementById('tituloModal').innerText = 'Actualizar Seccion';
     }
 }

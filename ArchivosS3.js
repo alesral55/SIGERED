@@ -7,8 +7,8 @@ import path from 'path';
 const s3 = new S3Client({
     region: 'us-east-2',  // Asegúrate de usar la región correcta de tu bucket
     credentials: {
-        accessKeyId: 'tu accessKeyId',   // Reemplaza con tu Access Key
-        secretAccessKey: 'tu secretAccessKey'   // Reemplaza con tu Secret Key
+        accessKeyId: 'AKIA2FXADQRPINX43SSZ',   // Reemplaza con tu Access Key
+        secretAccessKey: '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'   // Reemplaza con tu Secret Key
     }
 });
 
@@ -16,7 +16,7 @@ const s3 = new S3Client({
 const upload = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'nombre-del-bucket', // Reemplaza con el nombre de tu bucket
+        bucket: 'archivos-sigered', // Reemplaza con el nombre de tu bucket
         key: (req, file, cb) => {
             const fileExtension = path.extname(file.originalname);
             cb(null, Date.now().toString() + '-' + file.originalname); // Nombre único del archivo

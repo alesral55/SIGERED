@@ -9,13 +9,14 @@ app.use(cors()); // Permite CORS para todas las rutas
 app.use(express.json());
 
 app.all('*', async (req, res) => {
-  console.log(req);
+  console.log('Ingresa el  inicio');
+  //console.log(req);
   const event = {
     httpMethod: req.method,
     path: req.path,
     body: JSON.stringify(req.body),
   };
-console.log(event);
+
   const result = await handler(event);
   res.status(result.statusCode).send(JSON.parse(result.body));
 });

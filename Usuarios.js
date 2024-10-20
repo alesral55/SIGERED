@@ -1,27 +1,27 @@
 import { poolPromise } from './db.js';
 import sql from 'mssql';
-import { generateToken } from './utils/auth.js';
 import { verifyToken } from './utils/auth.js';
 import bcrypt from 'bcryptjs';
 
 export async function nuevoUsuario(usuarioBody) {
     const Usuario = usuarioBody;
-    
-    console.log('Ingresa al método antes de insertar');
     console.log(Usuario);
-    console.log(Usuario.tkn);
-
     // Verificar el token (agregar await si verifyToken es asincrónico)
-    const verification = await verifyToken(Usuario.usrCui, Usuario.tkn);
-    console.log(verification);
-    if (verification.verified === false) {
-        return {
-            status: 401,
-            message: 'Token no válido, inicia session de nuevo'
-        };
+    if(Usuario.idRol !=3 && Usuario.estado !='R'){
+
+        const verification = await verifyToken(Usuario.usrCui, Usuario.tkn);
+        console.log(verification);
+        if (verification.verified === false) {
+            return {
+                status: 401,
+                message: 'Token no válido, inicia session de nuevo'
+            };
+        }
+        
+        console.log('El token es válido');
     }
-    
-    console.log('El token es válido');
+
+
 
     try {
         // Conectar al pool de la base de datos

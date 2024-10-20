@@ -19,8 +19,6 @@
 
 
 
-
-
 //const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
 const urlConsulta = 'http://localhost:3000'
 const personasPath = urlConsulta + '/persona';
@@ -40,6 +38,7 @@ const seccionesPath = urlConsulta +'/secciones'
 const cursosDisponiblesPath =  urlConsulta +'/cursosDisponibles'
 
 function cargarInicio() {
+    document.getElementById('userDropdown').innerText = sessionStorage.getItem('nombre')
     const cambio = sessionStorage.getItem('requiereCambio')
     if (cambio == 1) {
         cargarFormulario(60)
