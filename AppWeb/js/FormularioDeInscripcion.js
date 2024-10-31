@@ -1,4 +1,8 @@
 let imgDPI
+document.addEventListener('DOMContentLoaded', function () {
+    ObtenerCurso();
+});
+
 
 async function VALIDAR() {
     // Obtener los tres formularios
@@ -12,7 +16,7 @@ async function VALIDAR() {
     // Validar cada formulario falta el dorm3 
     [form1, form2, form3].forEach(function (formulario) {
         if (!formulario.checkValidity()) {
-            formValido = true;
+            formValido = false;
             formulario.classList.add('was-validated');
         } else {
             formulario.classList.add('was-validated');
@@ -39,14 +43,6 @@ async function VALIDAR() {
     }
 };
 
-function enviarDatos() {
-    // Lógica para enviar o procesar los datos de los tres formularios
-    Swal.fire({
-        icon: 'Succes',
-        title: 'Succes',
-        text: "Todos los datos son correctos",
-    });
-}
 
 
 
@@ -97,10 +93,12 @@ function Seccion3() {
 function mostrarModal(codigoEsperado) {
     const modal = document.getElementById('modalCodigo');
     const cancelarBtn = document.getElementById('cancelarBtn');
-    const validarBtn = document.getElementById('reenviarBtn'); // Lo usamos para validar ahora
+    const validarBtn = document.getElementById('reenviarBtn');
     const inputCodigo = document.getElementById('inputCodigo');
     const IncorrectCodigo = document.getElementById('IncorrectCodigo');
+    const correo = document.querySelector('input[name="correo"]').value
 
+    document.getElementById('lblVerificacion').innerText = `Te hemos enviado un codigo a ${correo}, por favor ingresalo:`
     // Mostrar el modal y vaciar el campo del código
     modal.style.display = 'flex';
     inputCodigo.value = ''; // Vaciar el campo cada vez que se abre el modal
@@ -108,7 +106,7 @@ function mostrarModal(codigoEsperado) {
     // Manejar el evento de cancelar
     cancelarBtn.addEventListener('click', () => {
         modal.style.display = 'none';
-        console.log('El proceso ha sido cancelado.');
+        //  console.log('El proceso ha sido cancelado.');
     });
 
     // Manejar el evento de validar código
@@ -121,11 +119,11 @@ function mostrarModal(codigoEsperado) {
                 text: "Debes ingresar tu codigo de verificacion para continuar",
             });
         } else if (inputCodigo.value === codigoEsperado) {
-            Swal.fire(
+            /*Swal.fire(
                 'Success',
                 'El codigo se ha validado Correctamente, recuerda que ese codigo te servira para ingresar por primera vez al sistema',
                 'success'
-            )
+            )*/
             modal.style.display = 'none';
             agregarDocente(codigoEsperado)
             // Continúa el proceso después de la verificación
@@ -145,6 +143,8 @@ function mostrarModal(codigoEsperado) {
 
 //metodo para enviar el corrego electronico y generar el codigo de verificacion
 async function enviarCorreo() {
+    const loader = document.getElementById('loader');
+    loader.style.display = 'flex'; // Muestra el loader
     const url = 'https://17hqvm0qu1.execute-api.us-east-2.amazonaws.com/Prod/'; // Reemplaza con la URL de tu Lambda
     const correo = document.querySelector('input[name="correo"]').value
     const primerNombre = document.querySelector('input[name="primerNombre"]').value
@@ -165,15 +165,22 @@ async function enviarCorreo() {
         });
 
         const result = await response.json();
-
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 10); // Retraso de 500 ms, ajusta según sea necesario
         if (response.ok) {
-            console.log('Correo enviado correctamente:', result);
+            //console.log('Correo enviado correctamente:', result);
             // Aquí mostrarías el modal para ingresar el código
+
             mostrarModal(result.codigo);
         } else {
             console.error('Error al enviar el correo:', result);
         }
     } catch (error) {
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 10); // Retraso de 500 ms, ajusta según sea necesario
+        AError('Ocurrio un error en el servidor Reporte este problema a la Academia')
         console.error('Error en la solicitud:', error);
     }
 }
@@ -246,7 +253,7 @@ function ObtenerGrupoEtnico() {
 
             }
             const selectElement = document.querySelector('select[name="idGrupoEtnico"]');
-
+            // console.log('grupo etnico');
             const opcionDefault = document.createElement('option');
             opcionDefault.value = '';
             opcionDefault.text = 'Seleccione un Grupo Etnico';
@@ -255,7 +262,7 @@ function ObtenerGrupoEtnico() {
 
             datosMantenimiento.forEach(mante => {
                 const option = document.createElement('option');
-                option.value = mante.idGrupoEtnico;
+                option.value = mante.idGrupo;
                 option.text = mante.nombreGrupo;
 
 
@@ -353,7 +360,22 @@ function ObtenerTpDiscapacidad() {
 
 ObtenerTpDiscapacidad()
 
+function ObtenerCurso() {
+    // console.log('obtener cruaso');
+    const selectElement = document.getElementById('idCurso')
+
+    // const selectElement = document.querySelector('select[name="idCurso"]');
+    // console.log(selectElement);
+    const opcionDefault = document.createElement('option');
+    const idCurso = sessionStorage.getItem('idCurso');
+    opcionDefault.value = idCurso
+    opcionDefault.text = sessionStorage.getItem('nombreCurso');
+    selectElement.appendChild(opcionDefault);
+
+}
+
 function ObtenerHorario() {
+    const idCurso = sessionStorage.getItem('idCurso')
     const horariosPath = urlConsulta + '/horarios'
     let datosMantenimiento
     fetch(horariosPath)
@@ -368,12 +390,13 @@ function ObtenerHorario() {
             //console.log(datos);
             if (datos) {
                 //console.log(datos);
-                datosMantenimiento = datos.data.filter(dato => dato.estado === 'A' && dato.idCurso == 5);
-                console.log(datosMantenimiento);
+                datosMantenimiento = datos.data.filter(dato => dato.estado === 'A' && dato.idCurso == idCurso);
+                //console.log(datosMantenimiento);
 
             }
             const selectElement = document.querySelector('select[name="idHorario"]');
-
+            //console.log('obtener horario');
+            // console.log(selectElement);
             const opcionDefault = document.createElement('option');
             opcionDefault.value = '';
             opcionDefault.text = 'Seleccione el Horario';
@@ -392,8 +415,8 @@ function ObtenerHorario() {
         });
 
 }
-
 ObtenerHorario()
+
 
 ///////Metodo para cargar documentos
 const urlPath = 'https://06d1nesw30.execute-api.us-east-2.amazonaws.com/prueba/Archivos'
@@ -406,7 +429,7 @@ async function cargarArchivosS3(campo) {
     const file = fileInput.files[0];
 
     if (!file) {
-        alert('Por favor selecciona un archivo.');
+        AWarning('Por favor selecciona un archivo.');
         return;
     }
 
@@ -442,10 +465,11 @@ async function cargarArchivosS3(campo) {
         });
 
         const result = await response.json();
-        console.log(result);
-        alert(result.message);
+        //console.log(result);
+        //alert(result.message);
         return result.fileUrl;
     } catch (error) {
+        AError('Ocurrio un error en el servidor Reporte este problema a la Academia')
         console.error('Error al enviar el archivo:', error);
         throw error; // Propagar el error para manejarlo en el llamado de la función
     }
@@ -454,6 +478,8 @@ async function cargarArchivosS3(campo) {
 
 
 function agregarDocente(pwd) {
+    const loader = document.getElementById('loader');
+    loader.style.display = 'flex'; // Muestra el loader
     document.getElementsByName("contrasenia").value = pwd
     let form = document.getElementById('formDatosPersonales');
     let formData2 = new FormData(form);
@@ -461,7 +487,7 @@ function agregarDocente(pwd) {
 
     const usuarioPath = urlConsulta + '/usuario';
     // Enviar la solicitud fetch
-    console.log(data);
+    //console.log(data);
     fetch(usuarioPath, {
 
         method: 'POST',
@@ -476,10 +502,15 @@ function agregarDocente(pwd) {
             }
         })
         .then(function (datos) {
-            if(datos.code ==1){
-                agregarPago()
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 10); // Retraso de 500 ms, ajusta según sea necesario
+            if (datos.code == 1) {
+                //agregarPago()
+
+                agregarAlumnoYPago()
             }
-            else{
+            else {
                 generarAlerta(datos)
             }
 
@@ -491,12 +522,16 @@ async function agregarPago() {
     let form = document.getElementById('formPagos');
     let formData2 = new FormData(form);
     let data = Object.fromEntries(formData2.entries());
-    const pagoPath = urlConsulta+ '/pago'
+    const pagoPath = urlConsulta + '/pago'
     const imgTransferencia = await cargarArchivosS3('imgTransferencia');
-    const result =  imgTransferencia
+    if (!imgTransferencia) {
+        AWarning('No se pudo cargar la imagen. No se realizará la inserción.');
+        return; // Detener la ejecución si la imagen no se cargó
+    }
+    const result = imgTransferencia
     data.imgTransferencia = result
-   
-    console.log(data);
+
+    //console.log(data);
 
     fetch(pagoPath, {
 
@@ -514,6 +549,88 @@ async function agregarPago() {
         .then(function (datos) {
             generarAlerta(datos)
         })
+}
+
+
+async function agregarAlumnoYPago() {
+    const loader = document.getElementById('loader');
+    loader.style.display = 'flex'; // Muestra el loader
+    // Obtener el formulario de datos personales
+    let formAlumnos = document.getElementById('formAlumnos');
+    let formDataAlumno = new FormData(formAlumnos);
+    let dataAlumno = Object.fromEntries(formDataAlumno.entries());
+
+    // Obtener el formulario de pagos
+    let formPagos = document.getElementById('formPagos');
+    let formDataPago = new FormData(formPagos);
+    let dataPago = Object.fromEntries(formDataPago.entries());
+
+    // Cargar la imagen de transferencia a S3
+    const imgTransferencia = await cargarArchivosS3('imgTransferencia');
+    if (!imgTransferencia) {
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 10); // Retraso de 500 ms, ajusta según sea necesario
+        AWarning('No se pudo cargar la imagen. No se realizará la inserción.');
+        return;
+    }
+
+    // Agregar imagen de transferencia al pago
+    dataPago.imgTransferencia = imgTransferencia;
+
+    const imgDPI = await cargarArchivosS3('imgDPI');
+    if (!imgDPI) {
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 10); // Retraso de 500 ms, ajusta según sea necesario
+        AWarning('No se pudo cargar la imagen. No se realizará la inserción.');
+        return;
+    }
+
+    // Agregar imagen de transferencia al pago
+    dataAlumno.imgDPI = imgDPI;
+    dataAlumno.cui = document.querySelector('input[name="cui"]').value
+    // Combinar los datos de alumno y pago en un solo objeto
+    const combinedData = {
+        alumno: dataAlumno,
+        pago: dataPago
+    };
+
+    // Revisar los datos combinados antes de enviar
+    // console.log('combino la data');
+    // console.log(combinedData);
+
+    // URL para el endpoint que maneja la inserción de alumno y pago
+    const alumnoPagoPath = urlConsulta + '/alumnoYPago';
+
+    // Enviar los datos combinados usando fetch
+    fetch(alumnoPagoPath, {
+        method: 'POST',
+        body: JSON.stringify(combinedData),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(function (respuesta) {
+            if (respuesta.ok) {
+                return respuesta.json();
+            } else {
+                throw new Error('Error en la solicitud.');
+            }
+        })
+        .then(function (datos) {
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 10); // Retraso de 500 ms, ajusta según sea necesario
+            generarAlerta(datos); // Mostrar la alerta con los datos recibidos
+        })
+        .catch(function (error) {
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 10); // Retraso de 500 ms, ajusta según sea necesario
+            console.error('Error al procesar la solicitud:', error);
+            AWarning('Hubo un error al registrar el alumno y el pago.');
+        });
 }
 
 

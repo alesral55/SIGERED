@@ -256,7 +256,7 @@ function ActualizarMantenimiento() {
         .then(function (respuesta) {
             if (respuesta.status === 401) {
                 // Si el token ha expirado, mostrar la pantalla de reautenticación
-                mostrarModalReautenticacion(); // Asegúrate de que esta función esté definida
+                mostrarModalReautenticacion(); 
             }
             if (respuesta.ok) {
                 return respuesta.json();

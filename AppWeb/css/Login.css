@@ -156,9 +156,9 @@ body {
 .rl-loading-thumb {
     width: 10px;
     height: 40px;
-    background-color: #41f3fd;
+    background-color: rgba(220, 30, 37, .97);;
     margin: 4px;
-    box-shadow: 0 0 12px 3px #0882ff;
+    box-shadow: 0 0 12px 3px #238CCC;
     animation: rl-loading 1.5s ease-in-out infinite;
 }
 
@@ -179,12 +179,12 @@ body {
     }
 
     20% {
-        background: white;
+        background: rgba(220, 30, 37, .97);;
         transform: scale(1.5);
     }
 
     40% {
-        background: #41f3fd;
+        background: #238CCC;
         transform: scale(1)
     }
 }

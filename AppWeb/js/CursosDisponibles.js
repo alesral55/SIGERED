@@ -71,7 +71,7 @@ function generarTabla(cursos) {
                 <td>${curso.DescripcionRequisito}</td>  
                 <td>${formatearFecha(curso.fechaInicio)}</td>  
                 <td>
-                    <button class="btn btnAzul btn-dark" onclick="FormularioDeInscripcion(${curso.idCursoDispobible})">Ir al Formulario</button>
+                    <button class="btn btnAzul btn-dark" onclick="FormularioDeInscripcion(${curso.idCurso},'${curso.nombreCurso}')">Ir al Formulario</button>
                 </td>
             `;
             tabla.appendChild(fila);
@@ -106,7 +106,9 @@ function formatearFecha(fechaISO) {
     return `${dia}/${mes}/${anio}`;
 }
 
-function FormularioDeInscripcion(id){
-    sessionStorage.setItem('IdCurso', id);
+function FormularioDeInscripcion(id, nombre){
+    sessionStorage.setItem('idCurso', id);
+    sessionStorage.setItem('nombreCurso', nombre);
+
     window.location.href = '/FormularioDeInscripcion.html'; 
 }

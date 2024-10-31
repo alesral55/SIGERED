@@ -36,6 +36,8 @@ const cursosPath = urlConsulta +  '/cursos'
 const horariosPath =urlConsulta +'/horarios'
 const seccionesPath = urlConsulta +'/secciones'
 const cursosDisponiblesPath =  urlConsulta +'/cursosDisponibles'
+const inscripcionesPath = urlConsulta+'/inscripciones'
+
 
 function cargarInicio() {
     document.getElementById('userDropdown').innerText = sessionStorage.getItem('nombre')
@@ -60,7 +62,7 @@ function cargarInicio() {
             cargarFormulario(20)
         }
         if (rol == 1) {
-            cargarFormulario(50)
+            cargarFormulario(40)
         }
 
     }
@@ -93,6 +95,14 @@ function cargarFormulario(direccion) {
         case 40:
             url = '/componentes/inicioAdministracion.html'
             break;
+            case 41:
+                url = '/Administracion/Inscripciones.html'
+                src = '/js/Administracion/Inscripciones.js'
+                break;
+                case 46:
+                    url = '/Administracion/reporteAlumnos.html'
+                    src = '/js/Administracion/reporteAlumnos.js'
+                    break;
         case 47:
             url = '/Administracion/reporteDocentes.html'
             src = '/js/Administracion/reporteDocentes.js'

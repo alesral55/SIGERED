@@ -10,7 +10,7 @@ obtenerPersonas()
 function obtenerPersonas(page = 1, pageSize = 10) {
     const data = {
         estado: '',
-        idRol: 0,
+        idRol: 3,
         usrCui: sessionStorage.getItem('cui'),
         tkn: sessionStorage.getItem('token'),
         metodo: 1

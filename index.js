@@ -24,6 +24,8 @@ import { Secciones } from './Mantenimiento/Secciones.js';
 import { CursosDiponibles } from './Mantenimiento/CursosDisponibles.js';
 import { ArchivosS3 } from './ArchivosS3.js';
 import { nuevoPago } from './Pagos.js';
+import { nuevoAlumnoYPago } from './AlumnoPagoPath.js';
+import { Inscripciones } from './Administracion/Inscripciones.js';
 
 const loginPath = '/login';
 const registerPath = '/register';
@@ -47,6 +49,8 @@ const seccionesPath ='/secciones'
 const cursosDisponiblesPath = '/cursosDisponibles'
 const archivosS3Path = '/archivosS3'
 const pagoPath = '/pago'
+const alumnoPagoPath =  '/alumnoYPago';
+const inscripcionesPath = '/inscripciones'
 
 export const handler = async (event) => {
   let response;
@@ -481,6 +485,49 @@ export const handler = async (event) => {
         }
 
         break;
+
+              //////////////nuevo ALUMNO Y pago //////////////////////////
+
+      case event.httpMethod === 'POST' && event.path === alumnoPagoPath:
+        const alumnoYpagoBody = JSON.parse(event.body);
+        console.log('ingreso al ALUMNO Y pago');
+        // Agregar await para esperar a la resolución de la promesa
+        const alumnoYpagoResult = await nuevoAlumnoYPago(alumnoYpagoBody);
+
+        console.log(alumnoYpagoResult, "respuesta de la validación");
+
+        // Verificar si `loginResult` es null o no
+        if (alumnoYpagoResult) {
+          response = buildResponse(200, alumnoYpagoResult);
+        } else {
+          response = buildResponse(200, { message: 'Credenciales incorrectas' });
+        }
+
+        break;
+
+      ///////////////REGION INSCRIPCIONES////////////////////////////////
+      case event.path === inscripcionesPath:
+        console.log('iNSCRIPCIONES');
+        let inscripcionesResponse
+        if (event.httpMethod === 'GET') { inscripcionesResponse = await Inscripciones('GET') }
+        else if (event.httpMethod === 'POST') {
+          const tpMantenimientoBody = JSON.parse(event.body);
+          const verification = await verifyToken(tpMantenimientoBody.usrCui, tpMantenimientoBody.tkn);
+          console.log(verification);
+          if (verification.verified === false) {
+            response = buildResponse(401, { auth: 0, message: 'Token no válido, inicia session de nuevo' });
+          } else {
+            console.log('entra al esle tdiscapacidad');
+            inscripcionesResponse = await Inscripciones(tpMantenimientoBody)
+          }
+        }
+
+        if (inscripcionesResponse) {
+
+          response = buildResponse(200, inscripcionesResponse);
+        }
+        break;
+
 
       ///////////////FIN ////////////////////////////////
       default:

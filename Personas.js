@@ -311,14 +311,14 @@ export async function eliminarPersona(usuarioBody) {
             return {
                 status: 200,
                 code: 1,
-                message: "Los datos de la persona se actualizaron correctamente"
+                message: "La persona fue desactivada correctamente"
             }
 
-        } else if (resultado === -2) {
+        } else if (resultado === 2) {
             return {
                 status: 200,
-                code: -1,
-                message: " Otro usuario tiene este correo"
+                code: 1,
+                message: "La persona fue reactivada correctamente"
             }
 
         } else if (resultado === -1) {

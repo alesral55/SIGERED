@@ -189,13 +189,13 @@
                                                     <label class="form-label">Discapacidad:</label>
                                                     <select class="form-control" name="discapacidad" required>
                                                         <option value="S">Sí</option>
-                                                        <option value="N">No</option>
+                                                        <option selected value="N">No</option>
                                                     </select>
                                                 </div>
 
-                                                <div class="col-md-6 col-lg-4 form-group ">
+                                                <div class="col-md-6 col-lg-4 form-group was-validated">
                                                     <label class="form-label">Tipo de Discapacidad:</label>
-                                                    <select class="form-control"  name="idDiscapacidad"></select>
+                                                    <select class="form-control"  name="idDiscapacidad" required></select>
 
                                                 </div>
 
@@ -229,7 +229,7 @@
 
                                                 <div class="col-md-6 col-lg-4 form-group was-validated">
                                                     <label class="form-label">Curso:</label>
-                                                    <input class="form-control" type="number" name="idCurso" required />
+                                                    <select class="form-control" name="idCurso" id="idCurso" required> </select>
                                                 </div>
 
                                                 <div class="col-md-6 col-lg-4 form-group was-validated" style="display: none;">
@@ -348,7 +348,8 @@
                             <img class="logologin" src="/img/logo.png" alt="Logo">
                         </div>
 
-                            <h2>Ingresa el código de verificación</h2>
+                            <h2>Confirma tu correo</h2>
+                           <label id="lblVerificacion"></label>
                             <input type="text" id="inputCodigo" placeholder="Código de verificación">
                             <div id="IncorrectCodigo" style="display:none; color: red;">Código incorrecto</div>
 
@@ -357,6 +358,8 @@
 
                     </div>
                 </div>
+
+
                 <!-- Estilos del modal -->
                 <style>
                     #modalCodigo {
@@ -375,7 +378,11 @@
 
                 </style>
 
-
+    <div class="rl-loading-container" id="loader" style="display:none;">
+        <div class="rl-loading-thumb rl-loading-thumb-1"></div>
+        <div class="rl-loading-thumb rl-loading-thumb-2"></div>
+        <div class="rl-loading-thumb rl-loading-thumb-3"></div>
+    </div>
 </body>
 
 </html>

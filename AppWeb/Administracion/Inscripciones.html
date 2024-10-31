@@ -1,0 +1,301 @@
+<h2>Inscripciones</h2>
+<div class="row">
+    <div class="col-md-4">
+        <label for="filtroCUI">Filtro por CUI:</label>
+        <input type="text" id="filtroCUI" class="form-control" placeholder="Buscar por CUI"
+            oninput="aplicarFiltrosYMostrar()">
+    </div>
+    <div class="col-md-4">
+        <label for="filtroInteligente">Filtro inteligente:</label>
+        <input type="text" id="filtroInteligente" class="form-control" placeholder="Buscar en todos los campos"
+            oninput="aplicarFiltrosYMostrar()">
+    </div>
+
+</div>
+<br>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>CUI</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Género</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Curso</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="tablaPersonas"></tbody>
+</table>
+
+<nav>
+    <ul class="pagination justify-content-center" id="paginacion"></ul>
+</nav>
+
+<style>
+    .form-label {
+        font-weight: bold;
+    }
+
+    .img-fluid {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-top: 5px;
+        cursor: pointer;
+    }
+
+    .modal-body .container {
+        max-width: 100%;
+    }
+
+    /* Estilos para el fondo oscuro en pantalla completa */
+    #fullScreenViewer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.8);
+        /* Fondo oscuro semitransparente */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    /* Contenedor principal del contenido */
+    .viewer-content {
+        position: relative;
+        width: 90%;
+        height: 90%;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        overflow: auto;
+    }
+
+    /* Estilos para botones */
+    .close-btn,
+    .validate-btn {
+        position: absolute;
+        top: 10px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .close-btn {
+        right: 70px;
+        background-color: #d9534f;
+        /* Rojo */
+        color: white;
+    }
+
+    .validate-btn {
+        right: 10px;
+        background-color: #5cb85c;
+        /* Verde */
+        color: white;
+    }
+
+    /* Para el contenido */
+    #file-viewer img,
+    #file-viewer iframe {
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
+
+
+<div class="modal fade" id="modalAlumno" tabindex="-1" aria-labelledby="modalAlumnoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAlumnoLabel">Detalles de Inscripción</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row g-3">
+                        <!-- Nombres y Apellidos -->
+                        <div class="col-md-6">
+                            <label class="form-label">Nombres:</label>
+                            <input type="text" class="form-control" id="detalleNombres" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Apellidos:</label>
+                            <input type="text" class="form-control" id="detalleApellidos" readonly>
+                        </div>
+
+                        <!-- CUI y Rol -->
+                        <div class="col-md-6">
+                            <label class="form-label">CUI:</label>
+                            <input type="text" class="form-control" id="detalleCUI" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Código Personal:</label>
+                            <input type="text" class="form-control" id="detalleCodigoPersonal" readonly>
+                        </div>
+
+                        <!-- Curso y Horario -->
+                        <div class="col-md-6">
+                            <label class="form-label">Curso:</label>
+                            <input type="text" class="form-control" id="detalleCurso" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Horario:</label>
+                            <input type="text" class="form-control" id="detalleHorario" readonly>
+                        </div>
+
+                        <!-- Datos de Contacto -->
+                        <div class="col-md-6">
+                            <label class="form-label">Correo:</label>
+                            <input type="email" class="form-control" id="detalleCorreo" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Teléfono:</label>
+                            <input type="text" class="form-control" id="detalleTelefono" readonly>
+                        </div>
+
+                        <!-- Género, Fecha de Nacimiento, Estado -->
+                        <div class="col-md-4">
+                            <label class="form-label">Género:</label>
+                            <input type="text" class="form-control" id="detalleGenero" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Fecha de Nacimiento:</label>
+                            <input type="text" class="form-control" id="detalleFechaNacimiento" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Estado:</label>
+                            <input type="text" class="form-control" id="detalleEstado" readonly>
+                        </div>
+
+                        <!-- Dirección y Residencia -->
+                        <div class="col-md-6">
+                            <label class="form-label">Dirección:</label>
+                            <input type="text" class="form-control" id="detalleDireccion" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Residencia Local:</label>
+                            <input type="text" class="form-control" id="detalleResidenciaLocal" readonly>
+                        </div>
+
+                        <!-- Tipo Documento, Grupo Étnico y Discapacidad -->
+                        <div class="col-md-4">
+                            <label class="form-label">Tipo Documento:</label>
+                            <input type="text" class="form-control" id="detalleTipoDocumento" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Grupo Étnico:</label>
+                            <input type="text" class="form-control" id="detalleNombreGrupo" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Discapacidad:</label>
+                            <input type="text" class="form-control" id="detalleDiscapacidad" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nombre de Discapacidad:</label>
+                            <input type="text" class="form-control" id="detalleNombreDiscapacidad" readonly>
+                        </div>
+
+                        <!-- Colaborador y Área de Trabajo -->
+                        <div class="col-md-6">
+                            <label class="form-label">Es Colaborador:</label>
+                            <input type="text" class="form-control" id="detalleEsColaborador" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Área de Trabajo:</label>
+                            <input type="text" class="form-control" id="detalleAreaDeTrabajo" readonly>
+                        </div>
+
+
+                        <!-- Información de Pago -->
+                        <div class="col-md-6">
+                            <label class="form-label">Nombre Cuenta Origen:</label>
+                            <input type="text" class="form-control" id="detalleNombreCuentaOrigen" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Relación Inscrito:</label>
+                            <input type="text" class="form-control" id="detalleRelacionInscrito" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">NIT:</label>
+                            <input type="text" class="form-control" id="detalleNit" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nombre NIT:</label>
+                            <input type="text" class="form-control" id="detalleNombreNit" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Dirección NIT:</label>
+                            <input type="text" class="form-control" id="detalleDireccionNit" readonly>
+                        </div>
+                        <!-- Sistema de Pago y Fecha de Pago -->
+                        <div class="col-md-6">
+                            <label class="form-label">Sistema de Pago:</label>
+                            <input type="text" class="form-control" id="detalleSistemaDePago" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha de Pago:</label>
+                            <input type="text" class="form-control" id="detalleFechaPago" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Número de Autorización:</label>
+                            <input type="text" class="form-control" id="detalleNumeroAutorizacion" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Monto Pagado:</label>
+                            <input type="text" class="form-control" id="montoPago" readonly>
+                        </div>
+
+                        <!-- Imagen de DPI y Transferencia -->
+                        <div class="col-md-6">
+                            <label class="form-label">Imagen de DPI:</label>
+                            <button type="button" id="btnFormularioCompleto" onclick="abrirImagen(1)"
+                                class="btn btnProciegos2 btn-dark w-100">Ver Adjunto
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Imagen de Transferencia:</label>
+                            <button type="button" id="btnSeccion1" onclick="abrirImagen(2)"
+                                class="btn btnProciegos2 btn-dark w-100">Ver Adjunto
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnMarino btn-dark" onclick="openModal()">Rechazar Inscripcion </button>
+                <button type="button" onclick="apobar()" class="btn btnRojo btn-dark">Aprobar Inscripcion </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="rechazoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Rezhazo de Inscripcion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <textarea id="txtMensaje" class="form-control" rows="4" cols="30" placeholder="Escribe aquí el motivo del rechazo..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" onclick="rechazar()" class="btn btn-primary">Confirmar Rechazo</button>
+        </div>
+      </div>
+    </div>
+  </div>
