@@ -31,10 +31,8 @@ export async function Inscripciones(mantenimientoBody) {
 }
 
 async function obtenerListadoInscripciones() {
-    //console.log('Ingresa al método antes de insertar ciclos');
 
     try {
-        // Conectar al pool de la base de datos solo una vez
         if (!pool) {
             pool = await poolPromise;
         }

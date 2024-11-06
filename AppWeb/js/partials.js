@@ -16,11 +16,13 @@
          }
      });
  })();*/
+//Labda Archivos S3
+const urlPath = 'https://06d1nesw30.execute-api.us-east-2.amazonaws.com/prueba/Archivos'
+// Lambda  dynamoDb ARCHIVOS
+const archivosDynamoPath = 'https://lkul4b1ugl.execute-api.us-east-2.amazonaws.com/Produccion/recursos'
 
-
-
-//const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
-const urlConsulta = 'http://localhost:3000'
+const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
+//const urlConsulta = 'http://localhost:3000'
 const personasPath = urlConsulta + '/persona';
 const rolesPath = urlConsulta + '/rol';
 const cicloPath = urlConsulta + '/ciclo';
@@ -32,11 +34,15 @@ const tpTareaPath = urlConsulta + '/tpTarea'
 const tpEscalaPath = urlConsulta + '/tpEscala'
 const grupoEtnicoPath = urlConsulta + '/gpEtnico'
 const discapacidadPath = urlConsulta + '/discapacidad'
-const cursosPath = urlConsulta +  '/cursos'
-const horariosPath =urlConsulta +'/horarios'
-const seccionesPath = urlConsulta +'/secciones'
-const cursosDisponiblesPath =  urlConsulta +'/cursosDisponibles'
-const inscripcionesPath = urlConsulta+'/inscripciones'
+const cursosPath = urlConsulta + '/cursos'
+const horariosPath = urlConsulta + '/horarios'
+const seccionesPath = urlConsulta + '/secciones'
+const cursosDisponiblesPath = urlConsulta + '/cursosDisponibles'
+const inscripcionesPath = urlConsulta + '/inscripciones'
+const asignacionDocentes = urlConsulta + '/asignacionDocentes'
+const asignacionAlumnosPath = urlConsulta + '/asignacionAlumnos'
+const asignacionTareasPath = urlConsulta + '/asignacionTareas'
+const tareaPath =urlConsulta+'/tarea'
 
 
 function cargarInicio() {
@@ -62,7 +68,7 @@ function cargarInicio() {
             cargarFormulario(20)
         }
         if (rol == 1) {
-            cargarFormulario(40)
+            cargarFormulario(30)
         }
 
     }
@@ -89,20 +95,44 @@ function cargarFormulario(direccion) {
         case 20:
             url = '/componentes/inicioAlumnos.html'
             break;
+            case 23:
+                url = '/Alumnos/Tareas.html'
+                src = '/js/Alumnos/Tareas.js'
+                break;
         case 30:
             url = '/componentes/inicioDocentes.html'
+            break;
+        case 32:
+            url = '/Docentes/AsignacionDeTareas.html'
+            src = '/js/Docentes/AsignacionDeTareas.js'
+            break;
+        case 34:
+            url = '/Docentes/ListadoDeTareasDocente.html'
+            src = '/js/Docentes/ListadoDeTareasDocente.js'
+            break;
+        case 35:
+            url = '/Docentes/MisCursos.html'
+            src = '/js/Docentes/MisCursos.js'
             break;
         case 40:
             url = '/componentes/inicioAdministracion.html'
             break;
-            case 41:
-                url = '/Administracion/Inscripciones.html'
-                src = '/js/Administracion/Inscripciones.js'
-                break;
-                case 46:
-                    url = '/Administracion/reporteAlumnos.html'
-                    src = '/js/Administracion/reporteAlumnos.js'
-                    break;
+        case 41:
+            url = '/Administracion/Inscripciones.html'
+            src = '/js/Administracion/Inscripciones.js'
+            break;
+        case 42:
+            url = '/Administracion/AsignacionDeAlumnos.html'
+            src = '/js/Administracion/AsignacionDeAlumnos.js'
+            break;
+        case 43:
+            url = '/Administracion/AsignacionDeDocente.html'
+            src = '/js/Administracion/AsignacionDeDocente.js'
+            break;
+        case 46:
+            url = '/Administracion/reporteAlumnos.html'
+            src = '/js/Administracion/reporteAlumnos.js'
+            break;
         case 47:
             url = '/Administracion/reporteDocentes.html'
             src = '/js/Administracion/reporteDocentes.js'
@@ -171,25 +201,25 @@ function cargarFormulario(direccion) {
             url = '/Mantenimiento/Discapacidad.html'
             src = '/js/Mantenimiento/Discapacidad.js'
             break;
-            case 67:
-                url = '/Mantenimiento/Horarios.html'
-                src = '/js/Mantenimiento/Horarios.js'
-                break;
-                case 68:
-                    url = '/Mantenimiento/Secciones.html'
-                    src = '/js/Mantenimiento/Secciones.js'
-                    break;
-                    case 69:
-                    url = '/Mantenimiento/CursosDisponibles.html'
-                    src = '/js/Mantenimiento/CursosDisponibles.js'
-                    break;
+        case 67:
+            url = '/Mantenimiento/Horarios.html'
+            src = '/js/Mantenimiento/Horarios.js'
+            break;
+        case 68:
+            url = '/Mantenimiento/Secciones.html'
+            src = '/js/Mantenimiento/Secciones.js'
+            break;
+        case 69:
+            url = '/Mantenimiento/CursosDisponibles.html'
+            src = '/js/Mantenimiento/CursosDisponibles.js'
+            break;
 
         case 60:
             url = '/usuario/cambiarContrasenia.html'
             break;
 
         default:
-            alert('No existe la ruta')
+            AWarning('Estamos trabajando en las acutalizaciones, esta ruta no existe aun ;(')
             return
     }
 

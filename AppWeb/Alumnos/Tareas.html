@@ -1,0 +1,59 @@
+<div id="listaTareasContainer" style="display: block;">
+
+<h2>Tareas Asignadas</h2>
+<hr />
+<br />
+<div class="row">
+    <form id="formI" action="">
+        <div class="col-md-3">
+            <label for="filtroInteligente">Filtro inteligente:</label>
+            <input type="text" id="filtroInteligente" class="form-control" placeholder="Buscar en todos los campos" oninput="aplicarFiltrosYMostrar()">
+        </div>
+    </form>
+</div>
+<br>
+<h3>Tareas por Entregar</h3>
+<div class="accordion" id="ListadoTareasAcordeonPorEntregar"></div>
+<br />
+
+<h3>Tareas Entregadas</h3>
+
+<div class="accordion" id="ListadoTareasAcordeonEntregadas"></div>
+
+</div>
+
+<div id="detalleTareaContainer" style="display: none;">
+    <h2>Detalles de Tarea</h2>
+    <hr />
+    <div class="card border-opacity-25">
+        <div class="card-body">
+            <input type="hidden" id="idTarea" />
+            <h5 class="card-title" id="nombreTarea">Nombre de Tarea</h5>
+            <p class="card-text" id="descripcionTarea">Descripción de la tarea: </p>
+            <p class="card-text" id="fechaCreacion">Fecha de Creación:</p>
+            <p class="card-text" id="fechaVencimiento">Fecha de Vencimiento:</p>
+            <p class="card-text" id="estado">Estado: Pendiente</p>
+            <p class="card-text" id="punteo">Punteo: 0</p>
+            <p class="card-text" id="descripcionCurso">Curso: Nombre del Curso</p>
+        </div>
+        <div id="rubricaContainer"></div>
+        <div id="listaContainer"></div>
+    </div>
+    <button onclick="volverLista()" class="btn btn-secondary mt-3">Volver a la Lista</button>
+    
+    <div id="file-viewer-container" style="text-align: center; margin-top: 20px;">
+        <div id="file-viewer"
+            style="margin-top: 20px; width: 80%; height: 350px; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center;">
+            <!-- Aquí se visualizarán los archivos uno a la vez -->
+        </div>
+        <button onclick="mostrarAnterior()" class="btn btnRojo btn-dark"
+            style="margin-right: 20px;">Anterior</button>
+        <button onclick="mostrarSiguiente()" class="btn btnAzul btn-dark">Siguiente</button>
+
+    </div>
+    <div class="col-md-6 col-lg-6 form-group">
+        <label class="form-label">Sube tus archivos (máximo 4):</label>
+        <input class="form-control" type="file" name="archivos" id="archivos" accept="image/*,application/pdf"
+            onchange="previsualizarArchivos()" multiple />
+    </div>
+</div>

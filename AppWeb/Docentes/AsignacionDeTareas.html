@@ -1,0 +1,235 @@
+<h2>Asignacion de Tareas</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="formI" action="">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="form-label">Nombre:</label>
+                    <input type="text" class="form-control" name="nombreTarea">
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Descripcion:</label>
+                    <textarea class="form-control" name="descripcionTarea" id=""></textarea>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Fecha de Vencimiento:</label>
+                    <input type="date" class="form-control" name="fechaVence">
+                </div>
+                <div class="form-check form-switch" style="margin-left: 15px;">
+                    <br>
+                    <label class="form-check-label form-label" for="bloqueoEntrega">Permitir entregas despues de la
+                        fecha de
+                        vencimiento. </label>
+                    <input class="form-check-input" type="checkbox" value="1" id="bloqueoEntrega" name="bloqueoEntrega">
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Tipo de Calidicacion:</label>
+                    <select class="form-control" name="idTipoCalificacion" id="idTipoCalificacion"></select>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Tipo de Tarea:</label>
+                    <select class="form-control" name="idTipoTarea" id=""></select>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Punteo:</label>
+                    <input type="number" class="form-control" name="puntaje">
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Curso:</label>
+                    <select class="form-control" name="idCurso" id=""></select>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Horario:</label>
+                    <select class="form-control" name="idHorario"
+                        onchange="LlenarSelectSeccionesPorCursoYHorario(document.querySelector('select[name=idCurso]').value, this.value)"></select>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Seccion:</label>
+                    <select class="form-control" name="idSeccion" id=""></select>
+                </div>
+            </div>
+
+        </form>
+
+
+    </div>
+    <div class="col-md-8">
+        <!--
+                <div class="row">
+            <style>
+                #file-viewer {
+                    width: 100%;
+                    height: 500px;
+                    border: 2px solid #ccc;
+                    margin: 20px 0;
+                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            </style>
+            <div id="file-viewer">
+                
+            </div>
+            <div class="col-md-6 col-lg-4 form-group">
+                <label class="form-label">Fotografía:</label>
+                <input class="form-control" type="file" name="fotografia" id="fotografia" accept="image/*" onchange="previsualizarImagen()" />
+                <img id="previewImagen" src="#" alt="Previsualización Imagen" class="img-thumbnail mt-2" style="display:none; max-width: 100%; height: auto;" />
+            </div>
+        -->
+
+
+        <div id="file-viewer-container" style="text-align: center; margin-top: 20px;">
+            <div id="file-viewer"
+                style="margin-top: 20px; width: 80%; height: 350px; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center;">
+                <!-- Aquí se visualizarán los archivos uno a la vez -->
+            </div>
+            <button onclick="mostrarAnterior()" class="btn btnRojo btn-dark"
+                style="margin-right: 20px;">Anterior</button>
+            <button onclick="mostrarSiguiente()" class="btn btnAzul btn-dark">Siguiente</button>
+
+        </div>
+        <div class="col-md-6 col-lg-6 form-group">
+            <label class="form-label">Sube tus archivos (máximo 4):</label>
+            <input class="form-control" type="file" name="archivos" id="archivos" accept="image/*,application/pdf"
+                onchange="previsualizarArchivos()" multiple />
+        </div>
+        <div class="row">
+            <div class="calificacion-section col-lg-12 container mt-1">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 text-center">
+                        <h4 class="align-items-center">Herramienta de Evaluación</h4>
+                    </div>
+                </div>
+                <div id="2" class="calificacion-section-content" style="display: none;">
+                    <h5 style="font-weight:bold;">Lista de Cotejo</h5>
+                    <hr />
+                    <div id="listaCotejo">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Criterio</th>
+                                    <th>si</th>
+                                    <th>no</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" name="descripcionCriterio" class="form-control"></td>
+                                    <td>x</td>
+                                    <td>o</td>
+                                    <td><input type="hidden" name="idListaDeCotejo" value="" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-evenly">
+                            <div class="d-flex flex-column align-items-center mr-3">
+                                <button type="button" id="agregarFila" class="btn btn-primary btncrear"></button>
+                                <p class="mb-0" style="margin-top: 10px; font-weight:bold; font-size: 16px;">Agregar
+                                    Critero</p>
+                            </div>
+                        </div>
+
+                        <!--- <button id="agregarFila" class="btn btn-secondary">Agregar Criterio</button>   -->
+                    </div>
+                </div>
+                <div id="3" class="calificacion-section-content" style="display: none;">
+                    <h5 style="font-weight:bold;">Escala de Rango</h5>
+                    <div id="escalaDeRango">
+                        <hr />
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Caracteristica</th>
+                                    <th>Escala</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" name="descripcionCriterio" class="form-control"></td>
+                                    <td>Deficiente -> Exelente</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="d-flex justify-content-evenly">
+                            <div class="d-flex flex-column align-items-center mr-3">
+                                <button type="button" id="agregarFila2" class="btn btn-primary btncrear"></button>
+                                <p class="mb-0" style="margin-top: 10px; font-weight:bold; font-size: 16px;">Agregar
+                                    Critero</p>
+                            </div>
+                        </div>
+
+                        <!---  <button id="agregarFila2" class="btn btn-secondary">Agregar Criterio</button> -->
+                    </div>
+                </div>
+                <div id="1" class="calificacion-section-content" style="display: none;">
+                    <h5 style="font-weight:bold;">Rubrica</h5>
+                    <hr />
+                    <div id="rubrica">
+                        <p>Ingrese la cantidad de criterios y columnas según sea necesario</p>
+                        <form class="row">
+                            <div class="form-group col-lg-6">
+                                <label for="numFilas">Número de Filas (Criterios):</label>
+                                <input class="form-control" type="number" id="numFilas" min="1" max="15" value="1">
+                            </div>
+
+                            <div class="form-group col-lg-6">
+                                <label for="numColumnas">Número de Columnas (Niveles):</label>
+                                <input class="form-control" type="number" id="numColumnas" min="3" max="5" value="3">
+                            </div>
+                            <br />
+                            <button type="button" class="btn btnProciegos3 btn-dark" onclick="crearTablaRubrica()">Crear
+                                Rúbrica</button>
+                        </form>
+
+                        <br />
+
+                        <div id="rubricaContainer">
+                            <table id="rubricaTable">
+                                <thead>
+                                    <tr>
+                                        <td>Criterio</td>
+                                        <td>Exelente</td>
+                                        <td>Bueno</td>
+                                        <td>Regular</td>
+                                        <td>Suficiente</td>
+                                        <td>Debe Mejorar</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div id="4" class="calificacion-section-content" style="display: none;">
+                    <h2>Calificacion Manual</h2>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <button class="btn btnRojo btn-dark w-100" onclick="CrearTarea()" id="cancelarBtn">Crear Tarea</button>
+
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <button class="btn btnAzul btn-dark w-100" id="cancelarBtn">Crear Evaluacion Dinamica</button>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+</div>

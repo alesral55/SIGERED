@@ -1,0 +1,46 @@
+<h2>Listado de Tareas</h2>
+
+<div class="row">
+
+    <form id="formI" action="">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="filtroInteligente">Filtro inteligente:</label>
+                <input type="text" id="filtroInteligente" class="form-control" placeholder="Buscar en todos los campos"
+                    oninput="aplicarFiltrosYMostrar()">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Curso:</label>
+                <select class="form-control" name="idCurso" id=""></select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Horario:</label>
+                <select class="form-control" name="idHorario"
+                    onchange="LlenarSelectSeccionesPorCursoYHorario(document.querySelector('select[name=idCurso]').value, this.value)"></select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Seccion:</label>
+                <select class="form-control" name="idSeccion" id=""></select>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+<br>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Id Tarea</th>
+            <th>Nombre Tarea</th>
+            <th>Fecha de Entrega</th>
+            <th>Punteo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="tablaTareas"></tbody>
+</table>
+
+<nav>
+    <ul class="pagination justify-content-center" id="paginacion"></ul>
+</nav>

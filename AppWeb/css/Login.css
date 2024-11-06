@@ -10,13 +10,12 @@ body {
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 26, 36, 1); /* Color de fondo */
-    background-image: url('/img/academia.jpg'); /* Imagen de fondo */
+    background-image: url('/img/academia.jpg');
     background-repeat: no-repeat;
-    background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
-    background-position: center center; /* Centra la imagen */
-    background-attachment: fixed; /* Fija la imagen en el fondo */
-  }
-  
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
 
 .logo {
     width: 150px;
@@ -187,4 +186,16 @@ body {
         background: #238CCC;
         transform: scale(1)
     }
+}
+
+@media (max-width: 700px) {
+    body {
+        background-image:url('/img/academia.jpg'), linear-gradient(
+            rgba(37, 144, 226, 0.98), 
+            rgba(53, 125, 180, 0.98)
+        ); /* Agrega un gradiente oscuro encima de la imagen */
+        background-size: contain; /* Contiene la imagen sin cortarla */
+        background-position: center center;
+        background-attachment: scroll; /* Permite que la imagen se desplace en móviles */
+    }
 }
