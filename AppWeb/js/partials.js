@@ -16,13 +16,30 @@
          }
      });
  })();*/
+
+ const originalThen = Promise.prototype.then;
+
+ Promise.prototype.then = function(onFulfilled, onRejected) {
+     document.getElementById('loader').style.display = 'flex'; // Muestra el loader
+     return originalThen.call(this, (result) => {
+         document.getElementById('loader').style.display = 'none'; // Oculta el loader
+         return onFulfilled ? onFulfilled(result) : result;
+     }, (error) => {
+         document.getElementById('loader').style.display = 'none'; // Oculta el loader en caso de error
+         if (onRejected) onRejected(error);
+         else throw error;
+     });
+ };
+ 
+
+
 //Labda Archivos S3
 const urlPath = 'https://06d1nesw30.execute-api.us-east-2.amazonaws.com/prueba/Archivos'
 // Lambda  dynamoDb ARCHIVOS
 const archivosDynamoPath = 'https://lkul4b1ugl.execute-api.us-east-2.amazonaws.com/Produccion/recursos'
 
-const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
-//const urlConsulta = 'http://localhost:3000'
+//const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
+const urlConsulta = 'http://localhost:3000'
 const personasPath = urlConsulta + '/persona';
 const rolesPath = urlConsulta + '/rol';
 const cicloPath = urlConsulta + '/ciclo';
@@ -43,6 +60,7 @@ const asignacionDocentes = urlConsulta + '/asignacionDocentes'
 const asignacionAlumnosPath = urlConsulta + '/asignacionAlumnos'
 const asignacionTareasPath = urlConsulta + '/asignacionTareas'
 const tareaPath =urlConsulta+'/tarea'
+const reportesPath = urlConsulta+'/reportes'
 
 
 function cargarInicio() {
@@ -106,6 +124,10 @@ function cargarFormulario(direccion) {
             url = '/Docentes/AsignacionDeTareas.html'
             src = '/js/Docentes/AsignacionDeTareas.js'
             break;
+            case 33:
+                url = '/Docentes/CalificacionDeTareas.html'
+                src = '/js/Docentes/CalificacionDeTareas.js'
+                break;
         case 34:
             url = '/Docentes/ListadoDeTareasDocente.html'
             src = '/js/Docentes/ListadoDeTareasDocente.js'
@@ -137,6 +159,10 @@ function cargarFormulario(direccion) {
             url = '/Administracion/reporteDocentes.html'
             src = '/js/Administracion/reporteDocentes.js'
             break;
+            case 411:
+                url = '/Administracion/ReporteIngresos.html'
+                src = '/js/Administracion/ReporteIngresos.js'
+                break;
         case 50:
             url = '/componentes/inicioMantenimiento.html'
             break;

@@ -26,6 +26,11 @@ export async function AsignacionTareas(mantenimientoBody) {
         console.log(ObtenerListadoTareasResponse);
         return ObtenerListadoTareasResponse;
     } 
+    else if (mantenimientoBody.metodo === 5) {
+        const ObtenerListadoTareasResponse = await ObtenerTareasEntregadas(mantenimientoBody);
+        console.log(ObtenerListadoTareasResponse);
+        return ObtenerListadoTareasResponse;
+    } 
 }
 
 // Función para obtener tareas
@@ -180,5 +185,34 @@ async function eliminarTarea(mantenimientoBody) {
     } catch (err) {
         console.error(`Error al eliminar la tarea: ${err.message}`);
         throw new Error(`Error al eliminar la tarea: ${err.message}`);
+    }
+}
+
+
+async function ObtenerTareasEntregadas(tarea) {
+    console.log('ingresa a la obtencion de tareas entregadas');
+    try {
+        if (!pool) pool = await poolPromise;
+        const request = pool.request();
+        request.input('idTarea', sql.Int, tarea.idTarea);
+        request.input('cui', sql.NVARCHAR(30), tarea.cui );
+        const result = await request.execute('sp_ObtenerTareasEntregadas');
+        
+        if (result.recordset.length > 0) {
+            return {
+                status: 200,
+                data: result.recordset,
+                message: "Consulta exitosa"
+            };
+        } else {
+            return {
+                status: 200,
+                data: [],
+                message: "No se encontraron resultados"
+            };
+        }
+    } catch (err) {
+        console.error(`Error al obtener las tareas: ${err.message}`);
+        throw new Error(`Error al obtener las tareas: ${err.message}`);
     }
 }

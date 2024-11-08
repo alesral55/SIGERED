@@ -84,21 +84,24 @@
         -->
 
 
-        <div id="file-viewer-container" style="text-align: center; margin-top: 20px;">
+        <div class=" d-flex flex-column align-items-center">
             <div id="file-viewer"
-                style="margin-top: 20px; width: 80%; height: 350px; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center;">
-                <!-- Aquí se visualizarán los archivos uno a la vez -->
+                style="margin-top: 20px; width: 80%; height: 450px; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center;">
+                <!-- Aquí se visualizarán los archivos -->
             </div>
-            <button onclick="mostrarAnterior()" class="btn btnRojo btn-dark"
-                style="margin-right: 20px;">Anterior</button>
-            <button onclick="mostrarSiguiente()" class="btn btnAzul btn-dark">Siguiente</button>
+            <div style="margin-top: 20px;">
+                <button onclick="mostrarAnterior()" class="btn btnRojo btn-dark"
+                    style="margin-right: 10px;">Anterior</button>
+                <button onclick="mostrarSiguiente()" class="btn btnAzul btn-dark">Siguiente</button>
+            </div>
+            <div class="col-md-6 col-lg-6 form-group">
+                <label class="form-label">Sube tus archivos (máximo 4):</label>
+                <input class="form-control" type="file" name="archivos" id="archivos" accept="image/*,application/pdf"
+                    onchange="previsualizarArchivos()" multiple />
+            </div>
+        </div>
 
-        </div>
-        <div class="col-md-6 col-lg-6 form-group">
-            <label class="form-label">Sube tus archivos (máximo 4):</label>
-            <input class="form-control" type="file" name="archivos" id="archivos" accept="image/*,application/pdf"
-                onchange="previsualizarArchivos()" multiple />
-        </div>
+
         <div class="row">
             <div class="calificacion-section col-lg-12 container mt-1">
                 <div class="row justify-content-center">

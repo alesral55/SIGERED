@@ -1,33 +1,36 @@
 <div id="listaTareasContainer" style="display: block;">
 
-<h2>Tareas Asignadas</h2>
-<hr />
-<br />
-<div class="row">
-    <form id="formI" action="">
-        <div class="col-md-3">
-            <label for="filtroInteligente">Filtro inteligente:</label>
-            <input type="text" id="filtroInteligente" class="form-control" placeholder="Buscar en todos los campos" oninput="aplicarFiltrosYMostrar()">
-        </div>
-    </form>
-</div>
-<br>
-<h3>Tareas por Entregar</h3>
-<div class="accordion" id="ListadoTareasAcordeonPorEntregar"></div>
-<br />
+    <h2>Tareas Asignadas</h2>
+    <hr />
+    <br />
+    <div class="row">
+        <form id="formI" action="">
+            <div class="col-md-3">
+                <label for="filtroInteligente">Filtro inteligente:</label>
+                <input type="text" id="filtroInteligente" class="form-control" placeholder="Buscar en todos los campos"
+                    oninput="aplicarFiltrosYMostrar()">
+            </div>
+        </form>
+    </div>
+    <br>
+    <h3>Tareas por Entregar</h3>
+    <div class="accordion" id="ListadoTareasAcordeonPorEntregar"></div>
+    <br />
 
-<h3>Tareas Entregadas</h3>
+    <h3>Tareas Entregadas</h3>
 
-<div class="accordion" id="ListadoTareasAcordeonEntregadas"></div>
+    <div class="accordion" id="ListadoTareasAcordeonEntregadas"></div>
 
 </div>
 
 <div id="detalleTareaContainer" style="display: none;">
     <h2>Detalles de Tarea</h2>
     <hr />
+
     <div class="card border-opacity-25">
         <div class="card-body">
             <input type="hidden" id="idTarea" />
+            <input type="hidden" id="idSeccion" />
             <h5 class="card-title" id="nombreTarea">Nombre de Tarea</h5>
             <p class="card-text" id="descripcionTarea">Descripción de la tarea: </p>
             <p class="card-text" id="fechaCreacion">Fecha de Creación:</p>
@@ -39,21 +42,57 @@
         <div id="rubricaContainer"></div>
         <div id="listaContainer"></div>
     </div>
-    <button onclick="volverLista()" class="btn btn-secondary mt-3">Volver a la Lista</button>
-    
-    <div id="file-viewer-container" style="text-align: center; margin-top: 20px;">
-        <div id="file-viewer"
-            style="margin-top: 20px; width: 80%; height: 350px; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center;">
-            <!-- Aquí se visualizarán los archivos uno a la vez -->
+    <button onclick="volverLista()" class="btn btnProciegos3 btn-dark w-100">Volver a la Lista de Tareas</button>
+
+    <button class="btn btnAzul btn-dark w-100" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapsedocumentosAdjuntos" aria-expanded="true" aria-controls="collapsedocumentosAdjuntos">
+        Documentos Adjuntos
+    </button>
+    <hr />
+    <div class="accordion-item">
+
+        <div id="collapsedocumentosAdjuntos" class="accordion-collapse collapse show"
+        aria-labelledby="documentosAdjuntos" data-bs-parent="#accordionExample">
+        <div class="accordion-body d-flex flex-column align-items-center">
+            <div id="file-viewer"
+                style="margin-top: 20px; width: 80%; height: 550px; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center;">
+                <!-- Aquí se visualizarán los archivos -->
+            </div>
+            <div style="margin-top: 20px;">
+                <button onclick="mostrarAnterior()" class="btn btnRojo btn-dark" style="margin-right: 10px;">Anterior</button>
+                <button onclick="mostrarSiguiente()" class="btn btnAzul btn-dark">Siguiente</button>
+            </div>
         </div>
-        <button onclick="mostrarAnterior()" class="btn btnRojo btn-dark"
-            style="margin-right: 20px;">Anterior</button>
-        <button onclick="mostrarSiguiente()" class="btn btnAzul btn-dark">Siguiente</button>
+    </div>
+    <hr>
+    <div class="d-flex flex-column align-items-center">
+
+            <div id="file-viewerEntrega"
+                style="margin-top: 20px; width: 80%; height: 600px; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center;">
+                <!-- Aquí se visualizarán los archivos uno a la vez -->
+            </div>
+            <div style="margin-top: 20px;">
+                <button onclick="mostrarAnteriorEntrega()" class="btn btnRojo btn-dark" style="margin-right: 10px;">Anterior</button>
+                <button onclick="mostrarSiguienteEntrega()" class="btn btnAzul btn-dark">Siguiente</button>
+            </div>
+
+        <div class="col-md-6 col-lg-6 form-group">
+            <label class="form-label">Sube tus archivos (máximo 4):</label>
+            <input class="form-control" type="file" name="archivos" id="archivos" accept="image/*,application/pdf"
+                onchange="previsualizarArchivos()" multiple />
+                
+        </div>
+        <div class="col-md-6 col-lg-6 form-group">
+            <label class="form-label">Comentario:</label>
+            <textarea name="comentario" id="comentario" rows="3" class="form-control"></textarea>
+                <br>
+        </div>
+        <div class="col-md-6 form-group">
+            <button onclick="EnviarTarea()" class="btn btnRojo btn-dark w-100">Presentar Tarea</button>
+
+        </div>
+    </div>
 
     </div>
-    <div class="col-md-6 col-lg-6 form-group">
-        <label class="form-label">Sube tus archivos (máximo 4):</label>
-        <input class="form-control" type="file" name="archivos" id="archivos" accept="image/*,application/pdf"
-            onchange="previsualizarArchivos()" multiple />
-    </div>
 </div>
+

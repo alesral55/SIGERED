@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Reporte Ingresos SIGERED</title>
+        <link rel="icon" href="/img/logo.png" type="image/x-icon">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <style>
+    .container-fluid {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            padding: 10px;
+            justify-content: center;
+        }
+
+        .logo {
+            max-width: 220px;
+            margin-right: 10px;
+        }
+
+        .text-content p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        @media print {
+    #contImpresion .row, #contImpresion .col-md-6, #contImpresion .col-md-12 {
+        page-break-inside: avoid;
+    }
+}
+        </style>
+    </head>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <img class="logo" src="/img/LogotipoSF.png" alt="Logo">
+        <div class="text-content">
+            <p>Academia de Lengua de Señas de Guatemala y Multiprogramas <br>
+            del Benemérito Comité Pro Ciegos y Sordos de Guatemala</p>
+            <p id="fecha-reporte" ></p>
+        </div>
+    </div>
+
+    <h2>Reporte Alumnos</h2>
+    <hr>
+    <div class="contenido" id="contenidoReporte">
+        <!-- Aquí se insertará dinámicamente el contenido -->
+    </div>
+
+    <div class="">
+        <hr />
+        <footer style="font-size: 12px;" class="d-flex align-items-center justify-content-center">
+            <p>&copy; 2024 -SIGERED- Sistema de Gestión de Recursos Didácticos de la Academia de lengua de Señas de
+                Guatemala y Multiprogramas del Benemérito Comité de Pro-Ciegos y Sordos de Guatemala.</p><br>
+
+        </footer>
+    </div>
+
+
+
+</body>
+
+</html>
+<script>
+    // Función para mostrar la fecha y hora actual
+    function mostrarFechaReporte() {
+        const fechaActual = new Date();
+        const opciones = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+        // Formatear la fecha y hora
+        const fechaFormateada = fechaActual.toLocaleDateString('es-ES', opciones);
+        document.getElementById("fecha-reporte").innerText = `Fecha de generación del reporte: ${fechaFormateada}`;
+    }
+
+    // Llamada a la función para mostrar la fecha
+    mostrarFechaReporte();
+</script>

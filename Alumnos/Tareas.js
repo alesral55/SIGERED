@@ -25,7 +25,9 @@ export async function Tareas(mantenimientoBody) {
         const ObtenerListadoTareasResponse = await ObtenerListadoTareas(mantenimientoBody);
         console.log(ObtenerListadoTareasResponse);
         return ObtenerListadoTareasResponse;
-    } 
+    } else if (mantenimientoBody.metodo === 5) {
+        const InsertarMantenimiento = await entregaTarea(mantenimientoBody);
+        return InsertarMantenimiento;
 }
 
 // Función para obtener tareas
@@ -119,6 +121,40 @@ async function nuevaTarea(mantenimientoBody) {
         throw new Error(`Error al crear la tarea: ${err.message}`);
     }
 }
+// Función para insertar una nueva tarea
+async function entregaTarea(mantenimientoBody) {
+    const tarea = mantenimientoBody;
+    console.log('Entrega de tarea');
+    console.log(tarea);
+
+    try {
+        if (!pool) pool = await poolPromise;
+        const request = pool.request();
+        request.input('idTarea', sql.Int, tarea.idTarea);
+        request.input('CUIalumno', sql.NVARCHAR(30), tarea.CUIalumno);
+        request.input('idArchivosAdjuntos', sql.NVarChar(30), tarea.idArchivosAdjuntos); // Corregido
+        request.input('comentario', sql.NVarChar(2000), tarea.comentario);
+        request.input('idSeccion', sql.Int, tarea.idSeccion);
+        request.output('resultado', sql.Int); // Corregido: sin espacio al final
+
+        const result = await request.execute('sp_insertarEntregaDeTarea');
+        const resultado = result.output.resultado;
+
+        if (resultado === 1) {
+            return { status: 200, code: 1, message: `Tarea enviada correctamente` };
+        } else if (resultado === -1) {
+            return { status: 200, code: -1, message: `${lblMantenimiento} ya se encuentra registrada` };
+        } else if (resultado === -2) {
+            return { status: 200, code: -2, message: "Entrega bloqueada por fecha vencida" };
+        } else {
+            return { status: 500, message: "Error al enviar la tarea" };
+        }
+    } catch (err) {
+        console.error(`Error al actualizar la tarea: ${err.message}`);
+        throw new Error(`Error al actualizar la tarea: ${err.message}`);
+    }
+}
+
 
 // Función para actualizar una tarea
 async function actualizarTarea(mantenimientoBody) {
@@ -180,5 +216,5 @@ async function eliminarTarea(mantenimientoBody) {
     } catch (err) {
         console.error(`Error al eliminar la tarea: ${err.message}`);
         throw new Error(`Error al eliminar la tarea: ${err.message}`);
-    }
+    }}
 }

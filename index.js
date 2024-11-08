@@ -30,6 +30,7 @@ import { Asignaciones } from './Administracion/AsignacionDocentes.js';
 import { AsignacionAlumnos } from './Administracion/AsignacionAlumnos.js';
 import { AsignacionTareas } from './Docentes/AsignacionDeTareas.js';
 import { Tareas } from './Alumnos/Tareas.js';
+import { Reportes } from './Administracion/Reportes.js';
 
 const loginPath = '/login';
 const registerPath = '/register';
@@ -58,7 +59,8 @@ const inscripcionesPath = '/inscripciones'
 const asignacionDocentes = '/asignacionDocentes'
 const asignacionAlumnosPath = '/asignacionAlumnos'
 const asignacionTareasPath = '/asignacionTareas'
-const tareaPath ='/tarea'
+const tareaPath = '/tarea'
+const reportesPath = '/reportes'
 
 export const handler = async (event) => {
   let response;
@@ -483,7 +485,7 @@ export const handler = async (event) => {
         }
         break;
 
-     //#region  nuevo pago 
+      //#region  nuevo pago 
 
       case event.httpMethod === 'POST' && event.path === pagoPath:
         const pagoBody = JSON.parse(event.body);
@@ -545,7 +547,6 @@ export const handler = async (event) => {
         break;
 
       //#endregion 
-
       //#region AsignacionDocentes
       case event.path === asignacionDocentes:
         console.log('AsignacionDocentes');
@@ -571,11 +572,83 @@ export const handler = async (event) => {
         break;
 
       //#endregion 
-            //#region AsignacionAlumnos
-            case event.path === asignacionAlumnosPath:
-              console.log('AsignacionAlumnos');
-              let asignacionAResponse
-              if (event.httpMethod === 'GET') { asignacionAResponse = await AsignacionAlumnos('GET') }
+      //#region AsignacionAlumnos
+      case event.path === asignacionAlumnosPath:
+        console.log('AsignacionAlumnos');
+        let asignacionAResponse
+        if (event.httpMethod === 'GET') { asignacionAResponse = await AsignacionAlumnos('GET') }
+        else if (event.httpMethod === 'POST') {
+          const tpMantenimientoBody = JSON.parse(event.body);
+          const verification = await verifyToken(tpMantenimientoBody.usrCui, tpMantenimientoBody.tkn);
+          console.log(verification);
+          if (verification.verified === false) {
+            response = buildResponse(401, { auth: 0, message: 'Token no válido, inicia session de nuevo' });
+          } else {
+            console.log('entra al esle tdiscapacidad');
+            asignacionAResponse = await AsignacionAlumnos(tpMantenimientoBody)
+          }
+        }
+
+        if (asignacionAResponse) {
+
+          response = buildResponse(200, asignacionAResponse);
+        }
+        break;
+
+      //#endregion 
+      //#region AsignacionAlumnos
+      case event.path === asignacionTareasPath:
+        console.log('Asignacio TAREAS');
+        let asignacionTResponse
+        if (event.httpMethod === 'GET') { asignacionTResponse = await AsignacionTareas('GET') }
+        else if (event.httpMethod === 'POST') {
+          const tpMantenimientoBody = JSON.parse(event.body);
+          const verification = await verifyToken(tpMantenimientoBody.usrCui, tpMantenimientoBody.tkn);
+          console.log(verification);
+          if (verification.verified === false) {
+            response = buildResponse(401, { auth: 0, message: 'Token no válido, inicia session de nuevo' });
+          } else {
+            console.log('entra al esle tdiscapacidad');
+            asignacionTResponse = await AsignacionTareas(tpMantenimientoBody)
+          }
+        }
+
+        if (asignacionTResponse) {
+
+          response = buildResponse(200, asignacionTResponse);
+        }
+        break;
+
+      //#endregion 
+      //#region AsignacionAlumnos
+      case event.path === tareaPath:
+        console.log('Asignacio TAREAS Alumno');
+        let asignacionTAResponse
+        if (event.httpMethod === 'GET') { asignacionTAResponse = await Tareas('GET') }
+        else if (event.httpMethod === 'POST') {
+          const tpMantenimientoBody = JSON.parse(event.body);
+          const verification = await verifyToken(tpMantenimientoBody.usrCui, tpMantenimientoBody.tkn);
+          console.log(verification);
+          if (verification.verified === false) {
+            response = buildResponse(401, { auth: 0, message: 'Token no válido, inicia session de nuevo' });
+          } else {
+            console.log('entra al esle tdiscapacidad');
+            asignacionTAResponse = await Tareas(tpMantenimientoBody)
+          }
+        }
+
+        if (asignacionTAResponse) {
+
+          response = buildResponse(200, asignacionTAResponse);
+        }
+        break;
+
+      //#endregion 
+            //#region REPORTES
+            case event.path === reportesPath:
+              console.log('Reportes');
+              let resportesResponse
+              if (event.httpMethod === 'GET') { resportesResponse = await Reportes('GET') }
               else if (event.httpMethod === 'POST') {
                 const tpMantenimientoBody = JSON.parse(event.body);
                 const verification = await verifyToken(tpMantenimientoBody.usrCui, tpMantenimientoBody.tkn);
@@ -584,70 +657,18 @@ export const handler = async (event) => {
                   response = buildResponse(401, { auth: 0, message: 'Token no válido, inicia session de nuevo' });
                 } else {
                   console.log('entra al esle tdiscapacidad');
-                  asignacionAResponse = await AsignacionAlumnos(tpMantenimientoBody)
+                  resportesResponse = await Reportes(tpMantenimientoBody)
                 }
               }
       
-              if (asignacionAResponse) {
+              if (resportesResponse) {
       
-                response = buildResponse(200, asignacionAResponse);
+                response = buildResponse(200, resportesResponse);
               }
               break;
       
             //#endregion 
-
-                        //#region AsignacionAlumnos
-                        case event.path === asignacionTareasPath:
-                          console.log('Asignacio TAREAS');
-                          let asignacionTResponse
-                          if (event.httpMethod === 'GET') { asignacionTResponse = await AsignacionTareas('GET') }
-                          else if (event.httpMethod === 'POST') {
-                            const tpMantenimientoBody = JSON.parse(event.body);
-                            const verification = await verifyToken(tpMantenimientoBody.usrCui, tpMantenimientoBody.tkn);
-                            console.log(verification);
-                            if (verification.verified === false) {
-                              response = buildResponse(401, { auth: 0, message: 'Token no válido, inicia session de nuevo' });
-                            } else {
-                              console.log('entra al esle tdiscapacidad');
-                              asignacionTResponse = await AsignacionTareas(tpMantenimientoBody)
-                            }
-                          }
-                  
-                          if (asignacionTResponse) {
-                  
-                            response = buildResponse(200, asignacionTResponse);
-                          }
-                          break;
-                  
-                        //#endregion 
-
-                              
-            //#endregion 
-
-                        //#region AsignacionAlumnos
-                        case event.path === tareaPath:
-                          console.log('Asignacio TAREAS Alumno');
-                          let asignacionTAResponse
-                          if (event.httpMethod === 'GET') { asignacionTAResponse = await Tareas('GET') }
-                          else if (event.httpMethod === 'POST') {
-                            const tpMantenimientoBody = JSON.parse(event.body);
-                            const verification = await verifyToken(tpMantenimientoBody.usrCui, tpMantenimientoBody.tkn);
-                            console.log(verification);
-                            if (verification.verified === false) {
-                              response = buildResponse(401, { auth: 0, message: 'Token no válido, inicia session de nuevo' });
-                            } else {
-                              console.log('entra al esle tdiscapacidad');
-                              asignacionTAResponse = await Tareas(tpMantenimientoBody)
-                            }
-                          }
-                  
-                          if (asignacionTAResponse) {
-                  
-                            response = buildResponse(200, asignacionTAResponse);
-                          }
-                          break;
-                  
-                        //#endregion 
+      
       ///////////////FIN ////////////////////////////////
       default:
         response = buildResponse(404, { message: 'Ruta no encontrada' });

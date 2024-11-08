@@ -36,6 +36,7 @@ function obtenerPersonas(page = 1, pageSize = 10) {
             //console.log(datos);
             if (datosPersonas) {
                 datosPersonas = datos.data;
+                console.log(datosPersonas);
                 aplicarFiltrosYMostrar(page, pageSize);
             }
             else { return }
@@ -70,14 +71,20 @@ function aplicarFiltrosYMostrar(page = 1, pageSize = 10) {
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     const personasPaginadas = personasFiltradas.slice(startIndex, endIndex);
-
+if(pageSize==10000){
+    generarTabla2(personasPaginadas);
+}   else{
     generarTabla(personasPaginadas);
+}
+
 
     generarPaginacion(totalPages, page);
 }
 
 // Función para generar la tabla
 function generarTabla(personas) {
+    document.getElementById('thAcciones').style.display='block';
+
     const tabla = document.getElementById('tablaPersonas');
     tabla.innerHTML = '';
 
@@ -120,6 +127,44 @@ function generarTabla(personas) {
     });
 }
 
+function generarTabla2(personas) {
+    document.getElementById('thAcciones').style.display='none';
+    const tabla = document.getElementById('tablaPersonas');
+    tabla.innerHTML = '';
+
+    personas.forEach((persona) => {
+        const fila = document.createElement('tr');
+        if(persona.estado =='Activo'){
+            fila.innerHTML = `
+            <td>${persona.CUI}</td>
+            <td>${persona.Nombres}</td>
+            <td>${persona.Apellidos}</td>
+            <td>${persona.correo}</td>
+            <td>${persona.telefono || ''}</td>
+            <td>${persona.genero}</td>
+            <td>${formatearFecha(persona.fechaDeNacimiento)}</td>
+            <td>${persona.estado}</td>
+
+        `;
+        tabla.appendChild(fila);
+        }
+        else if(persona.estado =='Inactivo'){
+            fila.innerHTML = `
+            <td>${persona.CUI}</td>
+            <td>${persona.Nombres}</td>
+            <td>${persona.Apellidos}</td>
+            <td>${persona.correo}</td>
+            <td>${persona.telefono || ''}</td>
+            <td>${persona.genero}</td>
+            <td>${formatearFecha(persona.fechaDeNacimiento)}</td>
+            <td>${persona.estado}</td>
+
+        `;
+        tabla.appendChild(fila);
+        }
+
+    });
+}
 // Función para generar la paginación
 function generarPaginacion(totalPages, currentPage) {
     const paginacion = document.getElementById('paginacion');
@@ -176,3 +221,21 @@ function eliminarPersona(cui) {
         })
 
 }
+
+     // Función para imprimir el reporte
+     function imprimirReporte2() {
+        aplicarFiltrosYMostrar(page = 1, pageSize = 10000) 
+        const contenidoReporte = document.getElementById('contImpresion').outerHTML;
+
+        const ventanaReporte = window.open('/Reportes/ReporteAlumnos.html', 'Reporte', 'width=900,height=700');
+
+        ventanaReporte.onload = function () {
+            ventanaReporte.document.getElementById('contenidoReporte').innerHTML = contenidoReporte;
+
+            setTimeout(function () {
+                ventanaReporte.print();
+                ventanaReporte.close();
+                aplicarFiltrosYMostrar(1);
+            }, 500);
+        };
+    }

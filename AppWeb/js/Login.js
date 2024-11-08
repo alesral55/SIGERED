@@ -1,4 +1,4 @@
-/*
+
 // Deshabilitar clic derecho
  document.addEventListener('contextmenu', function(e) {
      e.preventDefault();
@@ -15,7 +15,11 @@
              _z = val;
          }
      });
- })();*/
+ })();
+
+    if (sessionStorage.getItem("cui")!=null) {
+        window.location.href = "/SIGERED.html";
+    }
 
 
 function Login() {
