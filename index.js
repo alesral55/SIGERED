@@ -33,7 +33,6 @@ import { Tareas } from './Alumnos/Tareas.js';
 import { Reportes } from './Administracion/Reportes.js';
 
 const loginPath = '/login';
-const registerPath = '/register';
 const healthPath = '/health';
 const docentesPath = '/docente'
 const usuarioPath = '/usuario';

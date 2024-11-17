@@ -1,4 +1,6 @@
-const urlConsulta = 'http://localhost:3000'
+//const urlConsulta = 'http://localhost:3000'
+const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
+
 const cursosDisponiblesPath =  urlConsulta + '/cursosDisponibles'
 
 // Variable global para almacenar los datos obtenidos

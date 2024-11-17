@@ -1,60 +1,107 @@
-let Punteo
-let CalificacionFinal = ''
-let idTarea = sessionStorage.getItem("idTarea")
-let idTipoCalificacion
-let idFormatoCalificaion
-/*
-const data = {
-    idTarea: 6,
-    usrCui: sessionStorage.getItem('cui'),
-    tkn: sessionStorage.getItem('token'),
-    cui:'',
-    metodo: 5
-};
+var Punteo
+var CalificacionFinal = ''
+var idTarea = sessionStorage.getItem("idTarea")
+var idTipoCalificacion
+var idFormatoCalificaion
 
-fetch(asignacionTareasPath, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-        'Content-Type': 'application/json'
-    }
-})
-    .then(function (response) {
-        if (response.ok) {
-            return response.json();
-        }
-    })*/
-        cargardatos()
-    function cargardatos() {
-        const datos = datosTareas[0]
-        console.log(datos)
+if (typeof urlarchivos2 === 'undefined') {
+    var urlarchivos2 = []; // Declárala si no existe
+} else {
+    urlarchivos2.length = 0; // Límpiala si ya existe
+}
 
-        // Actualiza los elementos HTML con los datos recibidos
-        let bloqueoEntrega = document.getElementById('bloqueoEntrega')
-        document.getElementById("nombreTarea").textContent = datos.nombreTarea;
-        document.getElementById("descripcionTarea").textContent = "Descripción de la tarea: " + datos.descripcionTarea;
-        document.getElementById("fechaCreacion").textContent = "Fecha de Creación: " + formatearFecha(datos.fechaDeEntrega);
-        document.getElementById("fechaVencimiento").textContent = "Fecha de Vencimiento: " + formatearFecha(datos.fechaDeEntrega);
-        document.getElementById("estado").textContent = "Estado: " + datos.estado;
-        document.getElementById("punteo").textContent = "Punteo: " + datos.puntaje;
-        Punteo = datos.puntaje
-        document.getElementById("descripcionCurso").textContent = "Curso: " + datos.descripcionCurso;
-        document.getElementById("descripcionBloque").textContent = "Bloque: " + datos.descripcionB;
-        idTipoCalificacion = datos.idTipoCalificacion
-        idFormatoCalificaion = datos.idFormatoCalificaion
-        if (datos.bloqueoEntrega == 1) {
-            bloqueoEntrega.checked = true
+cargardatos()
+async function cargardatos() {
+    if (typeof Tarea === 'undefined') {
+        cargarFormulario(34)
+        return
+    } else
+        if (!Tarea) {
+            cargarFormulario(34)
+            return
         }
-        if (datos.idTipoCalificacion == 1) {
-            ObtenerRubrica(datos.idFormatoCalificaion)
-        }
-        else if (datos.idTipoCalificacion == 2) {
-            ObtenerListaCotejo(datos.idFormatoCalificaion)
-        }
-        else if (datos.idTipoCalificacion == 3) {
-            ObtenerEscalaRango(datos.idFormatoCalificaion)
-        }
+    console.log(Tarea);
+    // Actualiza los elementos HTML con los datos recibidos
+    let bloqueoEntrega = document.getElementById('bloqueoEntrega')
+    document.getElementById("idTarea").value = Tarea.idTarea
+    document.getElementById("nombreTarea").textContent = Tarea.nombreTarea;
+    document.getElementById("descripcionTarea").textContent = "Descripción de la tarea: " + Tarea.descripcionTarea;
+    document.getElementById("fechaCreacion").textContent = "Fecha de Creación: " + formatearFecha(Tarea.fechaCreacion);
+    document.getElementById("fechaVencimiento").textContent = "Fecha de Vencimiento: " + formatearFecha(Tarea.fechaVence);
+    document.getElementById("estado").textContent = "Estado: " + Tarea.estado;
+    document.getElementById("punteo").textContent = "Punteo: " + Tarea.puntaje;
+    Punteo = Tarea.puntaje
+    document.getElementById("descripcionCurso").textContent = "Curso: " + Tarea.descripcionCurso;
+    document.getElementById("descripcionBloque").textContent = "Seccion: " + Tarea.descripcionB;
+    idTipoCalificacion = Tarea.idTipoCalificacion
+    idFormatoCalificaion = Tarea.idFormatoCalificaion
+    if (Tarea.bloqueoEntrega == 1) {
+        bloqueoEntrega.checked = true
     }
+    if (Tarea.idTipoCalificacion == 1) {
+        ObtenerRubrica(Tarea.idFormatoCalificaion)
+    }
+    else if (Tarea.idTipoCalificacion == 2) {
+        ObtenerListaCotejo(Tarea.idFormatoCalificaion)
+    }
+    else if (Tarea.idTipoCalificacion == 3) {
+        ObtenerEscalaRango(Tarea.idFormatoCalificaion)
+    }
+
+}
+
+
+var archivoActual = 0; // Índice del archivo actual
+
+// Muestra el archivo correspondiente al índice
+function verarchivos(indice) {
+    const fileUrl = urlarchivos2[indice];
+    const fileExtension = fileUrl.split('.').pop().toLowerCase();
+    const viewer = document.getElementById('file-viewer');
+
+    // Limpia el contenido anterior
+    viewer.innerHTML = "";
+
+    if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png' || fileExtension === 'gif') {
+        const img = document.createElement('img');
+        img.src = fileUrl;
+        img.alt = "Archivo de imagen";
+        viewer.appendChild(img);
+    } else if (fileExtension === 'pdf') {
+        const iframe = document.createElement('iframe');
+        iframe.src = fileUrl;
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.setAttribute('frameborder', '0');
+        viewer.appendChild(iframe);
+    } else {
+        viewer.innerHTML = "<p>Tipo de archivo no soportado para visualización.</p>";
+    }
+}
+
+// Muestra el siguiente archivo en la lista
+function mostrarSiguiente() {
+    if (archivoActual < urlarchivos2.length - 1) {
+        archivoActual++;
+        verarchivos(archivoActual);
+    } else {
+        AWarning("Has llegado al último archivo.");
+    }
+}
+
+// Muestra el archivo anterior en la lista
+function mostrarAnterior() {
+    if (archivoActual > 0) {
+        archivoActual--;
+        verarchivos(archivoActual);
+    } else {
+        AWarning("Estás en el primer archivo.");
+    }
+}
+
+
+
+
 
 function ObtenerRubrica(id) {
     fetch("/Alumnos/DescripcionRubricas?id=" + id)
@@ -69,7 +116,7 @@ function ObtenerRubrica(id) {
         });
 }
 
-let respuestaRubrica = []
+var respuestaRubrica = []
 
 function crearTablaRubrica(rubricaData) {
     let correlativo = 0
@@ -247,7 +294,7 @@ function ObtenerEscalaRango(id) {
             }
         })
         .then(function (EscalaData) {
-            Escala =EscalaData
+            Escala = EscalaData
             fetch("/Docentes/TipoEscala")
                 .then(function (response) {
                     if (response.ok) {
@@ -256,7 +303,7 @@ function ObtenerEscalaRango(id) {
                 })
                 .then(function (escalas) {
 
-                    creareEscala(Escala,escalas);
+                    creareEscala(Escala, escalas);
                 });
         });
 }
@@ -295,7 +342,7 @@ function contarFilasYSumarValores() {
 
         for (var i = 1; i < filas.length; i++) {
             var notaMax = parseFloat(filas[i].querySelector('label[name="exelente"]').innerText);
-                suma = suma+notaMax
+            suma = suma + notaMax
         }
 
 
@@ -314,7 +361,7 @@ function contarFilasYSumarValores() {
         console.log('Número de filas en la tabla: ' + totalFilas);
         console.log('Número puntos maz ' + suma);
         console.log('PUNTEO: ' + Punteo)
-        console.log('tiuma total: '+sumaTotal);
+        console.log('tiuma total: ' + sumaTotal);
         let Subpunteo = parseFloat(Punteo) / parseFloat(suma)
 
 
@@ -355,7 +402,7 @@ function contarFilasYSumarValores() {
         var filas = tabla.getElementsByTagName('tr');
         var suma = 0;
 
-        for (var i = 1; i < filas.length; i++) { 
+        for (var i = 1; i < filas.length; i++) {
             var select = filas[i].querySelector('select');
             var valorSeleccionado = select.value;
             suma += parseInt(valorSeleccionado);
@@ -379,146 +426,96 @@ function contarFilasYSumarValores() {
 
 
 
+async function ObtenerTarea() {
+    let CUIalumno = document.getElementById("CUIalumno").value;
+    let idTarea = document.getElementById("idTarea").value;
 
-function ObtenerTarea() {
-    let CUIalumno = document.getElementById("CUIalumno").value
-    let idTarea = document.getElementById("idTarea").value
-    if (idTarea == '') {
-        AWarning('No tiene un id de tarea, se recomienda ingresar desde la lista de tareas...')
-        return
+    if (idTarea === '') {
+        AWarning('No tiene un id de tarea, se recomienda ingresar desde la lista de tareas...');
+        return;
     }
-    fetch('/Docentes/TareasAcalificar', {
-        method: 'POST',
-        body: JSON.stringify({
-            idTarea: idTarea,
-            CUIalumno: CUIalumno
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(function (result) {
-            if (result.ok) {
-                return result.json();
 
-            }
-        })       
-        .then(function (data) {
-            if (data.idTareaEntregada == 0) {
-                AWarning('No hay mas entregas sin calificacion para esta tarea...')
-                return
-            }
-            pdfData = data; 
+    const data = {
+        idTarea: 6,
+        usrCui: sessionStorage.getItem('cui'),
+        tkn: sessionStorage.getItem('token'),
+        cui: '',
+        metodo: 5
+    };
 
-            document.getElementById("nombreEstudiante").innerText = 'Nombre del Estudiante: ' + data.nombre
-            var elementoEntrega = document.getElementById('entrega');
-            if (data.estado == 'Entregada con Atraso') {
-                elementoEntrega.style.color = 'red';
-            } else {
-                elementoEntrega.style.color = 'green';
+    try {
+        const result = await fetch(asignacionTareasPath, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
             }
-            elementoEntrega.innerText = data.estado
-            //console.log(data);
-           // console.log(data.direccionRecurso1);
-            cargarPDFEnObjetoPDF(data.direccionRecurso1, 1);
-
         });
-}
 
-var siguienteBtn = document.getElementById('siguienteBtn');
-var anteriorBtn = document.getElementById('anteriorBtn');
+        if (result.ok) {
+            const datos = await result.json();
+            const data = datos.data[0];
 
-siguienteBtn.addEventListener('click', function () {
-    cargarSiguientePDF();
-});
+            if (data.idTareaEntregada === 0) {
+                AWarning('No hay más entregas sin calificación para esta tarea...');
+                return;
+            }
 
-anteriorBtn.addEventListener('click', function () {
-    cargarPDFAnterior();
-});
-var pdfIndex = 1; 
-var pdfData =''; 
+            document.getElementById("nombreEstudiante").innerText = 'Nombre del Estudiante: ' + data.nombre;
+            const elementoEntrega = document.getElementById('entrega');
 
-function cargarPDFEnObjetoPDF(rutaPDF, index) {
-    var rutaCodificada = convertirRutaAURL(rutaPDF);
-    var extension = rutaCodificada.slice(((rutaCodificada.lastIndexOf(".") - 1) >>> 0) + 2);
-
-
-    var pdfObject = document.getElementById('visorPdf');
-    if (extension.toLowerCase() === 'pdf' || extension.toLowerCase() === 'png') {
-
-        var visor = `
-        <object data="${rutaCodificada}" type="application/pdf" width="100%" height="600px">
-            <p>El visor de PDF no es compatible con tu navegador. <a href="${rutaCodificada}">Haz clic aquí para descargar el PDF.</a></p>
-        </object>`;
-        pdfObject.innerHTML = visor;
-
-        // Actualizar el índice actual
-        pdfIndex = index;
-    }
-    else {
-        var nombreArchivo = rutaCodificada.substring(rutaCodificada.lastIndexOf('/') + 1);
-        var mensaje = `
-            <p>Nombre del archivo: ${nombreArchivo}</p>
-            <p><a href="${rutaCodificada}" download>Descargar el archivo</a></p>`;
-        pdfObject.innerHTML = mensaje;
-    }
-
-}
-
-function cargarSiguientePDF() {
-    pdfIndex++;
-    if (pdfIndex == 4) {
-        pdfIndex = 1
-    }
-    if (pdfIndex <= 3) {
-        cargarPDFEnObjetoPDF(pdfData[`direccionRecurso${pdfIndex}`], pdfIndex);
+            elementoEntrega.style.color = (data.estado === 'Entregada con Atraso') ? 'red' : 'green';
+            elementoEntrega.innerText = data.estado;
+            if (data.idArchivosAdjuntos != 'N/A') {
+                console.log('entra aca');
+                console.log(data.idArchivosAdjuntos);
+                const responseurlarchivos = await ObtenerArchivosDYNAMO(data.idArchivosAdjuntos);
+                 urlarchivos2 = responseurlarchivos.archivos;
+                 console.log(urlarchivos2);
+                verarchivos(1);
+            }
+        }
+    } catch (error) {
+        AError('Ocurrió un error al obtener la tarea.');
+        console.error(error);
     }
 }
 
-function cargarPDFAnterior() {
-    pdfIndex--;
-    if (pdfIndex == -1) {
-        pdfIndex = 3
+
+async function ObtenerArchivosDYNAMO(url) {
+    if (!url) {
+        return 'N/A'
     }
-    if (pdfIndex >= 1) {
-        cargarPDFEnObjetoPDF(pdfData[`direccionRecurso${pdfIndex}`], pdfIndex);
+    console.log(url)
+
+    try {
+        const response = await fetch(archivosDynamoPath, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: "consultar",
+                idArhivosAdjuntos: url
+            }),
+        });
+
+        const result = await response.json();
+        console.log(result);
+        return result
+    } catch (error) {
+        AError('Ocurrió un error en el servidor. Reporte este problema.');
+        console.error('Error al enviar el archivo:', error);
+        throw error;
     }
+
+
 }
 
-function convertirRutaAURL(ruta) {
-
-    ruta = ruta.replace(/\\/g, '/');
-    ruta = ruta.replace("C:/Users/HP/Desktop/WEB-SIGA-INED/SIGA-INED/SIGA-INED", "");
-    console.log(ruta)
-    return encodeURI(ruta);
-}
-
-
-
-
-/*
-function convertirRutaAURL(ruta) {
-
-    ruta = ruta.replace(/\\/g, '/');
-    ruta = ruta.replace("C:/Users/HP/Desktop/WEB-SIGA-INED/SIGA-INED/SIGA-INED", "");
-    console.log(ruta)
-    return encodeURI(ruta);
-}
-
-function cargarPDFEnObjetoPDF(rutaPDF) {
-    var rutaCodificada = convertirRutaAURL(rutaPDF);
-    var pdfObject = document.getElementById("visorPdf");
-    var visor = `
-                <object data="${rutaCodificada}" type="application/pdf" width="100%" height="600px">
-                    <p>El visor de PDF no es compatible con tu navegador. <a href="${rutaCodificada}">Haz clic aquí para descargar el PDF.</a></p>
-                </object>`;
-    pdfObject.innerHTML = visor;
-}
-
-*/
 
 function InsertarTarea() {
-    console.log('calificacionFibnal ', CalificacionFinal)
+    nota =document.getElementById("notaFilan").value
+if(!nota){
     if (CalificacionFinal == '') {
         AWarning('Debe calcular la nota antes de calificar la tarea....')
         return
@@ -527,8 +524,18 @@ function InsertarTarea() {
         AWarning('No se encontro ningun alumno para calificar intente de nuevo...')
         return
     }
-   // Nota =document.getElementById("notaFilan").value
-    let descripcion = document.getElementById('comentario').value 
+
+
+
+}CalificacionFinal = nota
+
+
+ASucces('La tarea ha sido calificada con exito ')
+cargarFormulario(33)
+return
+    console.log('calificacionFibnal ', CalificacionFinal)
+
+    let descripcion = document.getElementById('comentario').value
     fetch('/Docentes/InsertarNota', {
         method: 'POST',
         body: JSON.stringify({
@@ -598,7 +605,7 @@ function InsertarEscala(idNota, idEscala) {
     console.log(listaDeCotejo);
     fetch('/Docentes/InsertarRespuestaEscala', {
         method: "POST",
-        body: JSON.stringify(listaDeCotejo), 
+        body: JSON.stringify(listaDeCotejo),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -657,7 +664,7 @@ function InsertarLista(idNota, idListaDeCotejo) {
 
     fetch('/Docentes/InsertarRespuestaLista', {
         method: "POST",
-        body: JSON.stringify(listaDeCotejo), 
+        body: JSON.stringify(listaDeCotejo),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -694,14 +701,14 @@ function InsertarRubrica(idNota, idRubrica) {
         console.log(objetoExistente)
 
         var filaData = {
-            idRubrica: idRubrica, 
+            idRubrica: idRubrica,
             idDescripcionRubrica: idDescripcionRubrica,
-            notaDebeMejorar: objetoExistente.debeMejorar, 
+            notaDebeMejorar: objetoExistente.debeMejorar,
             notaSuficiente: objetoExistente.suficiente,
-            notaRegular : objetoExistente.regular, 
-            notaBueno : objetoExistente.bueno, 
-            notaExelente : objetoExistente.exelente,
-            dimension : dimension,
+            notaRegular: objetoExistente.regular,
+            notaBueno: objetoExistente.bueno,
+            notaExelente: objetoExistente.exelente,
+            dimension: dimension,
             idNota: idNota
         };
 
@@ -713,7 +720,7 @@ function InsertarRubrica(idNota, idRubrica) {
 
     fetch('/Docentes/InsertarRespuestaRubrica', {
         method: "POST",
-        body: JSON.stringify(listaRubirca), 
+        body: JSON.stringify(listaRubirca),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -748,7 +755,7 @@ function ImprimirListadoAlumnos() {
             setTimeout(function () {
                 newWindow.print();
                 newWindow.close();
-            }, 1000); 
+            }, 1000);
         })
         .catch(function (error) {
             console.error(error);

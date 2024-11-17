@@ -1,4 +1,5 @@
-const path = 'http://localhost:3000/'
+//const path = 'http://localhost:3000/'
+const path =  'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
 
 document.addEventListener('DOMContentLoaded', function () {
     let nombreUsuario = sessionStorage.getItem('nombre');
@@ -68,11 +69,12 @@ function compararPWD() {
         return
     }
 }
+const urlConsultalogin = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod/login'
 
 function cambiarContrasenia(nuevaContrasenia, contraseniaActual) {
     const cui = sessionStorage.getItem('cui')
     const token = sessionStorage.getItem('token')
-    fetch('http://localhost:3000/login', {
+    fetch(urlConsultalogin, {
         method: 'PUT',
         body: JSON.stringify({
             cui: cui,

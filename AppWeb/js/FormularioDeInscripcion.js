@@ -189,8 +189,8 @@ async function enviarCorreo() {
 /////////////////Funciones para llenar con comoboxes
 
 
-//const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
-const urlConsulta = 'http://localhost:3000'
+const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
+//const urlConsulta = 'http://localhost:3000'
 function ObtenerPagos() {
     const tpSisPago = urlConsulta + '/tpSisPago'
     let datosMantenimiento

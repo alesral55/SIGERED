@@ -38,8 +38,8 @@ const urlPath = 'https://06d1nesw30.execute-api.us-east-2.amazonaws.com/prueba/A
 // Lambda  dynamoDb ARCHIVOS
 const archivosDynamoPath = 'https://lkul4b1ugl.execute-api.us-east-2.amazonaws.com/Produccion/recursos'
 
-//const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
-const urlConsulta = 'http://localhost:3000'
+const urlConsulta = 'https://7q854bslmd.execute-api.us-east-2.amazonaws.com/prod'
+//const urlConsulta = 'http://localhost:3000'
 const personasPath = urlConsulta + '/persona';
 const rolesPath = urlConsulta + '/rol';
 const cicloPath = urlConsulta + '/ciclo';
@@ -136,6 +136,10 @@ function cargarFormulario(direccion) {
             url = '/Docentes/MisCursos.html'
             src = '/js/Docentes/MisCursos.js'
             break;
+            case 36:
+                url = '/Docentes/Notas.html'
+                src = '/js/Docentes/Notas.js'
+                break;
         case 40:
             url = '/componentes/inicioAdministracion.html'
             break;

@@ -19,6 +19,18 @@ if (typeof docentesCargados === 'undefined') {
 } else {
     docentesCargados.length = 0; // Límpiala si ya existe
 }
+if (typeof datosTareas === 'undefined') {
+    var datosTareas = []; // Declárala si no existe
+} else {
+    datosTareas.length = 0; // Límpiala si ya existe
+}
+if (typeof Tarea === 'undefined') {
+    var Tarea = {}; // Declárala si no existe
+} else {
+    Tarea.length = 0; // Límpiala si ya existe
+}
+
+
 ObtenerAsignacion()
 async function ObtenerAsignacion() {
     // Si ya tenemos niveles cargados, no los volvemos a buscar
@@ -88,7 +100,7 @@ async function ObtenerCursos() {
 
 // Función para llenar el select de CURSOS
 // Función para llenar el select de CURSOS
-LlenarSelectCursos()
+
 function LlenarSelectCursos(cursoSeleccionado = null) {
     // Limpiar el select
     document.querySelector('select[name="idCurso"]').addEventListener('change', function () {
@@ -283,6 +295,7 @@ function obtenerTareas(page = 1, pageSize = 10) {
         if (datos) {
             datosTareas = datos.data;
             aplicarFiltrosYMostrar(page, pageSize);
+            LlenarSelectCursos()
         }
     });
 }
@@ -332,7 +345,7 @@ function generarTabla(tareas) {
             <td>${formatearFecha(tarea.fechaVence)}</td>
             <td>${tarea.puntaje}</td>
             <td>
-                <button class="btn btn-primary btn-sm" onclick="editarTarea('${tarea.idTarea}')">Editar</button>
+                <button class="btn btn-primary btn-sm" onclick="calificarTarea('${tarea.idTarea}')">Calificar</button>
                 <button class="btn btn-danger btn-sm" onclick="eliminarTarea('${tarea.idTarea}')">Eliminar</button>
             </td>
         `;
@@ -356,10 +369,10 @@ function generarPaginacion(totalPages, currentPage) {
     }
 }
 
-const selectCurso = document.querySelector('select[name=idCurso]');
-const selectHorario = document.querySelector('select[name=idHorario]');
-const selectSeccion = document.querySelector('select[name=idSeccion]');
-const filtroInteligente = document.getElementById('filtroInteligente');
+var selectCurso = document.querySelector('select[name=idCurso]');
+var selectHorario = document.querySelector('select[name=idHorario]');
+var selectSeccion = document.querySelector('select[name=idSeccion]');
+var filtroInteligente = document.getElementById('filtroInteligente');
 selectCurso.addEventListener('change', () => aplicarFiltrosYMostrar());
 selectHorario.addEventListener('change', () => aplicarFiltrosYMostrar());
 selectSeccion.addEventListener('change', () => aplicarFiltrosYMostrar());
@@ -374,6 +387,13 @@ document.addEventListener('DOMContentLoaded', LlenarSelectCursos);
 
 //#endregion
 
+
+function calificarTarea(idTarea){
+
+Tarea = datosTareas.find(Tarea => Tarea.idTarea == idTarea)
+console.log(Tarea);
+cargarFormulario(33)
+}
 
 
 

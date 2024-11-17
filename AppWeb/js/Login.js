@@ -17,9 +17,26 @@
      });
  })();
 
-    if (sessionStorage.getItem("cui")!=null) {
+ // Forzar recarga de la página cada vez que se navegue hacia atrás
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+
+// Función para verificar si el usuario tiene sesión
+function verificarSesion() {
+    if (sessionStorage.getItem("cui") !== null) {
         window.location.href = "/SIGERED.html";
     }
+}
+
+// Ejecutar la verificación al cargar la página
+window.onload = verificarSesion;
+
+// Verificar también cuando el usuario navega hacia atrás
+window.onpopstate = verificarSesion;
+
 
 
 function Login() {

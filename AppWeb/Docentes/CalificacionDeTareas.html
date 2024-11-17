@@ -41,24 +41,28 @@
     </div>
     <br />
     <br />
-    <div class="d-flex justify-content-evenly">
 
-        <div class="d-flex flex-column align-items-center mr-3">
-            <button type="button" onclick="contarFilasYSumarValores()" class="btn btn-primary btncalificar"></button>
-            <p class="mb-0" style="margin-top: 10px;">Calcular</p>
-        </div>
+    <button class="btn btnAzul btn-dark w-100" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapsedocumentosAdjuntos" aria-expanded="true" aria-controls="collapsedocumentosAdjuntos">
+        Documentos Adjuntos
+    </button>
+    <hr />
+    <div class="accordion-item">
 
-        <div class="d-flex flex-column align-items-center">
-            <button type="button" onclick="InsertarTarea()" class="btn btn-primary btnverificar"></button>
-            <p class="mb-0" style="margin-top: 10px;">Calificar</p>
-        </div>
-
-        <div class="d-flex flex-column align-items-center mr-3">
-            <button type="submit" onclick="ImprimirListadoAlumnos()" class="btn btn-primary btnprint"></button>
-            <p class="mb-0" style="margin-top: 10px; font-weight:bold; font-size: 16px;">Imprimir Herramienta</p>
+        <div id="collapsedocumentosAdjuntos" class="accordion-collapse collapse show"
+        aria-labelledby="documentosAdjuntos" data-bs-parent="#accordionExample">
+        <div class="accordion-body d-flex flex-column align-items-center">
+            <div id="file-viewer"
+                style="margin-top: 20px; width: 80%; height: 550px; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center;">
+                <!-- Aquí se visualizarán los archivos -->
+            </div>
+            <div style="margin-top: 20px;">
+                <button onclick="mostrarAnterior()" class="btn btnRojo btn-dark" style="margin-right: 10px;">Anterior</button>
+                <button onclick="mostrarSiguiente()" class="btn btnAzul btn-dark">Siguiente</button>
+            </div>
         </div>
     </div>
-
+    <hr>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -69,27 +73,28 @@
                     </div>
                 </form>
             </div>
+            <div class="col-md-8">
+                <form>
+                    <div class="form-group">
+                        <label for="comentario">Punteo Manual</label>
+                        <input  id="notaFilan" class="form-control"  type="text">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-
-    <h6></h6>
-    <br />
-    <div id="visorPdf" style="width: 100%;"></div>
+<br>
     <div class="d-flex justify-content-evenly">
+
         <div class="d-flex flex-column align-items-center mr-3">
-            <button type="button" id="anteriorBtn" class="btn btn-primary btnflechaizq"></button>
-            <p class="mb-0" style="margin-top: 10px;">Anterior</p>
+            <button onclick="contarFilasYSumarValores()" class="btn btnRojo btn-dark" style="margin-right: 10px;">Calcular</button>
+
         </div>
 
         <div class="d-flex flex-column align-items-center">
-            <button type="button" id="siguienteBtn" class="btn btn-primary btnflechader"></button>
-            <p class="mb-0" style="margin-top: 10px;">Siguiente</p>
+            <button onclick="InsertarTarea()" class="btn btnAzul btn-dark">Calificar</button>
         </div>
-    </div>
-
-    <!---
-        <button id="anteriorBtn">Anteriror</button> <button id="siguienteBtn">Siguiente</button>
-        <div class="border-light" id="visorPdf" style="width: 100%;"></div>   -->
+    </div><br>
 
 
 </div>
